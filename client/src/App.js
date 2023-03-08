@@ -1,30 +1,34 @@
-import React from "react";
-import Revenue from "./pages/Revenue/Revenue"
-import Spending from "./pages/Spending/Spending"
-import Home from "./pages/Home/Home"
-import Accumulate from "./pages/Accumulate/Accumulate"
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Fragment } from 'react';
 
-
-
-import { Routes, Route, Link } from "react-router-dom";
+import { publicRoutes, privateRoutes } from './routes';
+import { DefaultLayout } from './components/Layouts';
 
 import classes from './App.module.scss';
-import Sidebar from "./shares/Sidebar/Sidebar";
 
 function App() {
-  
-  return (
-    <div className={classes.App}>      
-      <Routes>
-        <Route path="/" element={<Sidebar />}>
-          <Route index element={<Home />} />
-          <Route path="revenue" element={<Revenue />} />
-          <Route path="spending" element={<Spending />} />
-          <Route path="accumulate" element={<Accumulate />} />
-        </Route>
-      </Routes>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                {publicRoutes.map((route, index) => {
+                    const Layout = route.layout === null ? Fragment : DefaultLayout;
+                    const Page = route.component;
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                            }
+                        />
+                    );
+                })}
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

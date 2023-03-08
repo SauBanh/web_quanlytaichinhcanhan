@@ -1,0 +1,9 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .contenter {
+        width: 1150px;
+        display: flex;
+    }
+}
