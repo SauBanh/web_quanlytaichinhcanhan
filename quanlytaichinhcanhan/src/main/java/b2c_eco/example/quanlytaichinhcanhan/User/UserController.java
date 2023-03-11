@@ -1,8 +1,10 @@
 package b2c_eco.example.quanlytaichinhcanhan.User;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -22,14 +26,17 @@ public class UserController {
     @Autowired
     private final UserRepository userRepository;
 
-    @GetMapping("/users")
+    @Autowired
+    private final UserService userService;
+
+    @GetMapping("/usersall")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/{id}")
-    public User getUser(@PathVariable("id") Long id) {
-        return userRepository.findById(id).orElse(new User());
+    @GetMapping("/user")
+    public Optional<User> getUser(Authentication authentication) {
+        return userService.getUser(authentication);
     }
 
     @PostMapping("/users")
