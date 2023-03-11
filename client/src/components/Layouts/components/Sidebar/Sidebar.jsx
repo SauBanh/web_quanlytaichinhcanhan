@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
 
@@ -26,7 +26,7 @@ const Sidebar = () => {
                     </li>
                 </ul>
             </aside>
-            <Outlet />
+            {/* <Outlet /> */}
         </div>
     );
 };
