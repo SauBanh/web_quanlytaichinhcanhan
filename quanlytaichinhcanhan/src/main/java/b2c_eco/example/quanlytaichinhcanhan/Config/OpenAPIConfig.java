@@ -1,4 +1,4 @@
-package b2c_eco.example.quanlytaichinhcanhan;
+package b2c_eco.example.quanlytaichinhcanhan.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
