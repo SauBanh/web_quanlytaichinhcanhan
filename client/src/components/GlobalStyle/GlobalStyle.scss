@@ -1,0 +1,25 @@
+@import 'normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto+Slab:wght@500&display=swap');
+
+:root {
+    // Default Layout
+    --default-layout-header-height: 60px;
+    --while-color: #fff;
+    --black-color: #000;
+    --primary-color: #51adff;
+    --hover-color: #d8edff;
+    --red-color: #ec1414;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+}
+
+body {
+    font-family: 'Montser', sans-serif;
+}
