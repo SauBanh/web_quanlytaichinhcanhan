@@ -1,0 +1,33 @@
+table {
+    // $table-color: #d8edff;
+    width: 100%;
+    th {
+        padding: 20px 0;
+    }
+    tr {
+        &:nth-child(even) {
+            background-color: var(--while-color);
+        }
+        td {
+            padding: 20px 0;
+            text-align: center;
+            span {
+                width: 100%;
+                height: 100%;
+                &:hover {
+                    color: var(--red-color);
+                }
+            }
+        }
+        &:hover {
+            background-color: var(--hover-color);
+            cursor: pointer;
+        }
+        &.nonehover {
+            &:hover {
+                background-color: transparent;
+                cursor: pointer;
+            }
+        }
+    }
+}
