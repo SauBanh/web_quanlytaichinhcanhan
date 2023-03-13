@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // thêm icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,7 @@ import { faHouse, faMoneyBill, faMoneyCheckDollar, faSackDollar } from '@fortawe
 import classNames from 'classnames/bind';
 
 import styles from './Sidebar.module.scss';
+import Avatar from '../Avatar/Avatar';
 
 const cx = classNames.bind(styles);
 
@@ -35,11 +36,10 @@ const itemsMenuSidebar = [
 ];
 
 const Sidebar = () => {
-    // const [active, setActive] = useState()
-
     return (
         <div className={cx('wrapper')}>
             <aside>
+                <Avatar />
                 <ul>
                     {itemsMenuSidebar.map((itemMenuSidebar, index) => {
                         return (

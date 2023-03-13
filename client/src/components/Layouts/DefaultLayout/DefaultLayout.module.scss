@@ -1,10 +1,17 @@
 .wrapper {
+    height: 100vh;
     .container {
         width: var(--default-layout-width);
         display: flex;
+        height: 100vh;
         .content {
+            box-shadow: inset 5px 0px 15px -5px #ccc;
             flex: 1;
-            min-height: 1000px;
+            background-color: #efefef;
+            overflow-y: auto;
+            &-childern {
+                padding: 20px;
+            }
         }
     }
 }

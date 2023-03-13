@@ -15,10 +15,10 @@ function DefaultLayout({ children }) {
                 <Sidebar />
                 <div className={cx('content')}>
                     <Header />
-                    {children}
+                    <div className={cx('content-childern')}>{children}</div>
+                    <Footer />
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }

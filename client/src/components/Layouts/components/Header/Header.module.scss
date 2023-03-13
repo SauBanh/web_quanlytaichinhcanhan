@@ -12,5 +12,23 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 40px;
+        .acion {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            .logo {
+                padding-right: 10px;
+            }
+            .money {
+                padding-right: 20px;
+            }
+            &-list {
+                position: absolute;
+                top: calc(100% + 22px);
+                right: -20px;
+                width: 200px;
+            }
+        }
     }
 }

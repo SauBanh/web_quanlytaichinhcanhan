@@ -1,10 +1,12 @@
 .wrapper {
     width: 300px;
     padding: 20px;
+    box-shadow: 0 0 10px 2px #89a5be7a;
     aside {
         ul {
             list-style: none;
             li {
+                margin: 15px 0;
                 .menuitem {
                     padding: 20px 35px;
                     text-decoration: none;
@@ -12,10 +14,11 @@
                     color: #000;
                     border-radius: 10px;
                     &:hover {
-                        background-color: #d8edff;
+                        background-color: var(--hover-color);
                     }
                     &.active {
-                        background-color: #51adff;
+                        background-color: var(--primary-color);
+                        color: var(--while-color);
                     }
                     .logo {
                         padding-right: 30px;
