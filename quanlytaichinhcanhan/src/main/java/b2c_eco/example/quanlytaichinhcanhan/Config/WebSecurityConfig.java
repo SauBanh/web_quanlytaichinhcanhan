@@ -1,5 +1,7 @@
 package b2c_eco.example.quanlytaichinhcanhan.Config;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -8,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import b2c_eco.example.quanlytaichinhcanhan.JWT.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +27,16 @@ public class WebSecurityConfig {
     public final AuthenticationProvider authenticationProvider;
 
     @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         
         http
@@ -31,16 +46,18 @@ public class WebSecurityConfig {
             .requestMatchers( "/v3/**", "/swagger-ui/**", "/swagger-ui.html")
             .permitAll()
             .requestMatchers("/api/auth/**", "")
-            .permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
+            .permitAll() 
             .anyRequest()
             .authenticated()
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .authenticationProvider(authenticationProvider)// Tất cả các request khác đều cần phải xác thực mới được truy cập
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            .authenticationProvider(authenticationProvider)
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .cors(cors -> cors.disable());
 
         return http.build();
     }
+    
 }
