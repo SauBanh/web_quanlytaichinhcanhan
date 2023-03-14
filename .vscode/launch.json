@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-B2CEcoApplication<B2C_Eco>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.B2C_Eco.B2CEcoApplication",
+            "projectName": "B2C_Eco",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+.wrapper {
+    .content {
+        padding: 10px 0;
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            h2 {
+                font-size: 16px;
+            }
+            button {
+                padding: 8px 20px;
+                border-radius: 5px;
+                border: none;
+                background-color: #39c14e;
+                color: #fff;
+                span {
+                    padding-left: 10px;
+                }
+                &:hover {
+                    background-color: #32a143;
+                }
+            }
+        }
+    }
+}
