@@ -34,17 +34,17 @@ public class DeptController {
     }
 
     @PostMapping("/")
-    public Dept addDept(Long id, @RequestBody Dept dept){
-        return deptService.createUserDept(id, dept);
+    public Dept addDept(@RequestBody Dept dept){
+        return deptService.createUserDept(dept);
     }
 
     @PutMapping("/{id}")
-    public Dept changeDept(@PathVariable("id") Long id, Long uid, @RequestBody Dept dept){
-        return deptService.changeUserDept(id, uid, dept);
+    public Dept changeDept(Authentication authentication, @PathVariable("id") Long id, Long uid, @RequestBody Dept dept){
+        return deptService.changeUserDept(authentication, id, uid, dept);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDept(@PathVariable("id") Long id){
-        deptService.deleteDept(id);
+    public void deleteDept(Authentication authentication, @PathVariable("id") Long id, Long uid){
+        deptService.deleteDept(authentication, id, uid);
     }
 }

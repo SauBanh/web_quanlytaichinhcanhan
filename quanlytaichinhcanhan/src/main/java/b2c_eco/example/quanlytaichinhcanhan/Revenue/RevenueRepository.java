@@ -1,5 +1,12 @@
 package b2c_eco.example.quanlytaichinhcanhan.Revenue;
 
-public class RevenueRepository {
-    
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RevenueRepository extends JpaRepository<Revenue, Long>{
+    List<Revenue> findAllById(Long id);
+    Revenue findByIdAndIdr(Long id, Long idr);
 }

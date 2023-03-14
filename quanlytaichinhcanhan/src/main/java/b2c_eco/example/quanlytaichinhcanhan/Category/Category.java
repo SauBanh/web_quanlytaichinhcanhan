@@ -1,4 +1,4 @@
-package b2c_eco.example.quanlytaichinhcanhan.Target;
+package b2c_eco.example.quanlytaichinhcanhan.Category;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,19 +10,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="target")
+@Table
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Target {
-
+public class Category {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idt;
-    
-    private Long id;
-    private Long ida;
-    private String name;
-    private Long value;
+    private Long idc;
 
+    private String name;
 }

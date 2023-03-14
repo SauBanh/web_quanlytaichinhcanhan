@@ -23,28 +23,37 @@ public class DeptService {
     public List<Dept> getAllDepts(Authentication authentication){
         User user = userService.getUser(authentication).orElse(null);
         Long uid = user.getId();
-        return deptRepository.findByIdOrderByAddDateAsc(uid);
+        return deptRepository.findAllById(uid);
     }
 
     public Dept getDeptWithIdD(Authentication authentication, Long id){
         User user = userService.getUser(authentication).orElse(null);
         Long uid = user.getId();
-        return deptRepository.findByIdAndIdD(uid, id);
+        return deptRepository.findByIdAndIdd(uid, id);
     }
 
-    public Dept createUserDept(Long uid, Dept dept){
-        dept.setId(uid);
+    public Dept createUserDept(Dept dept){
         return deptRepository.save(dept);
     }
 
-    public Dept changeUserDept(Long id, Long uid, Dept dept){
+    public Dept changeUserDept(Authentication authentication, Long id, Long uid, Dept dept){
         dept.setId(uid);
-        dept.setIdD(id);
-        return deptRepository.save(dept);
+        User user = userService.getUser(authentication).orElse(null);
+        Long uidCheck = user.getId();
+        if(uid != uidCheck){
+            return deptRepository.save(dept);
+        } else {
+            dept.setIdd(id);
+            return deptRepository.save(dept);
+        }
     }
 
-    public void deleteDept(Long id){
-        deptRepository.deleteById(id);
+    public void deleteDept(Authentication authentication, Long id, Long uid){
+        User user = userService.getUser(authentication).orElse(null);
+        Long uidCheck = user.getId();
+        if(uid == uidCheck){
+            deptRepository.deleteById(id);
+        }
     }
 
 }
