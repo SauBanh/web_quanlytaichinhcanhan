@@ -1,0 +1,21 @@
+.wrapper {
+    ul {
+        list-style: none;
+        li {
+            a {
+                display: flex;
+                padding: 10px;
+                text-decoration: none;
+                color: var(--black-color);
+                border-radius: 10px;
+                &:hover {
+                    background-color: var(--primary-color);
+                    color: var(--white-color);
+                }
+                span {
+                    padding-left: 15px;
+                }
+            }
+        }
+    }
+}

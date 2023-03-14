@@ -7,14 +7,15 @@ import { faCaretDown, faWallet } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import Wrapper from '../../../Wrapper/Wrapper';
+import Dropdown from '../../../Dropdown/Dropdown';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    const [active, setActive] = useState(false);
+    const [activeAction, setActiveAction] = useState(false);
 
     const isActive = () => {
-        setActive(!active);
+        setActiveAction(!activeAction);
     };
 
     return (
@@ -28,9 +29,11 @@ function Header() {
                     <div className={cx('logo')}>Xin chào Nguyễn Tuấn Anh</div>
                     <div>
                         <FontAwesomeIcon icon={faCaretDown} />
-                        {active || (
+                        {activeAction || (
                             <div className={cx('acion-list')}>
-                                <Wrapper>Nguyễn Tuấn Anh</Wrapper>
+                                <Wrapper>
+                                    <Dropdown />
+                                </Wrapper>
                             </div>
                         )}
                     </div>
