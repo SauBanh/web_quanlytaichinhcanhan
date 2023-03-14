@@ -21,7 +21,7 @@ function Dropdown() {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/">
+                    <Link to="/login">
                         <FontAwesomeIcon icon={faRightFromBracket} />
                         <span>Logout</span>
                     </Link>

@@ -1,6 +1,32 @@
 .wrapper {
     .content {
         padding: 10px 0;
+        .formadd {
+            margin: 15px 0;
+            form {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                input {
+                    padding: 5px;
+                    width: 30%;
+                    margin-right: 10px;
+                    border-radius: 5px;
+                }
+                button {
+                    padding: 5px 10px;
+                    margin-left: 10px;
+                    border-radius: 5px;
+                    border: none;
+                    font-weight: 600;
+                    color: var(--white-color);
+                    background-color: #2777c0;
+                    &:hover {
+                        background-color: var(--red-color);
+                    }
+                }
+            }
+        }
         .title {
             display: flex;
             justify-content: space-between;

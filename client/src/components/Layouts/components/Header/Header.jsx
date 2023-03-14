@@ -29,7 +29,7 @@ function Header() {
                     <div className={cx('logo')}>Xin chào Nguyễn Tuấn Anh</div>
                     <div>
                         <FontAwesomeIcon icon={faCaretDown} />
-                        {activeAction || (
+                        {activeAction && (
                             <div className={cx('acion-list')}>
                                 <Wrapper>
                                     <Dropdown />

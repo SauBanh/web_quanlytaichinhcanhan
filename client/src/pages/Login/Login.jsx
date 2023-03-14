@@ -7,37 +7,53 @@ import axios from 'axios';
 import classes from './Login.module.scss';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Gọi API đăng nhập tại đây
+    const handleLogin = (event) => {
+        event.preventDefault();
+
+        axios
+            .post('http://localhost:8081/api/auth/authenticate', { username, password })
+            .then((response) => {
+                setToken(response.data.token);
+                console.log(response.data);
+            })
+            .catch((error) => console.error(error));
     };
 
     return (
-        <div>
-            <h2>Đăng nhập</h2>
-            <form onSubmit={handleSubmit}>
+        <>
+            {token ? (
                 <div>
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <p>You are logged in with token: {token}</p>
+                    <button onClick={() => setToken('')}>Logout</button>
                 </div>
-                <div>
-                    <label htmlFor="password">Mật khẩu:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit">Đăng nhập</button>
-            </form>
-            <p>
-                Nếu chưa có tài khoản? <Link to="/register">Đăng ký</Link>
-            </p>
-        </div>
+            ) : (
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <label htmlFor="username">Username:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            )}
+        </>
     );
 };
 
