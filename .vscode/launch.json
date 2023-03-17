@@ -9,6 +9,16 @@
             "projectName": "B2C_Eco",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-QuanlytaichinhcanhanApplication<quanlytaichinhcanhan>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "b2c_eco.example.quanlytaichinhcanhan.QuanlytaichinhcanhanApplication",
+            "projectName": "quanlytaichinhcanhan",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
