@@ -7,6 +7,7 @@ import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
 import Edit from '../pages/Edit/Edit';
 import Add from '../pages/Add/Add';
+import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -18,6 +19,7 @@ const publicRoutes = [
     { path: '/profile', component: Profile, layout: null },
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Register, layout: null },
+    { path: '/ForgotPassword', component: ForgotPassword, layout: null },
 ];
 
 const privateRoutes = [];
