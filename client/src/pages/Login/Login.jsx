@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
+import api from '../../assets/Api/Api';
 import classes from './Login.module.scss';
 
 const Login = () => {
@@ -25,7 +26,7 @@ const Login = () => {
 
     const handleGetData = () => {
         axios
-            .get('http://localhost:8081/api/users/user', {
+            .get('http://localhost:8081/api/users/', {
                 headers: {
                     // Content-Type: 'application/json',
                     accept: 'application/json',
@@ -38,7 +39,97 @@ const Login = () => {
             .catch((error) => {
                 console.log(error);
             });
+
         console.log(token);
+    };
+
+    const handlePost = () => {
+        axios
+            .post(
+                'http://localhost:8081/api/revenue/',
+                {
+                    idr: 0,
+                    id: 2,
+                    name: 'test2',
+                    value: 1000,
+                    adddate: '2023-03-18T03:31:03.314Z',
+                    description: 'string',
+                },
+
+                {
+                    headers: {
+                        // Content-Type: 'application/json',
+                        accept: 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            )
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => console.error(error));
+
+        console.log(token);
+    };
+
+    const handleGetRevenue = () => {
+        axios
+            .get('http://localhost:8081/api/revenue/', {
+                headers: {
+                    // Content-Type: 'application/json',
+                    accept: 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const handleDeleteRevenue = () => {
+        axios
+            .delete('http://localhost:8081/api/revenue/8?uid=2', {
+                headers: {
+                    // Content-Type: 'application/json',
+                    accept: 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const handlePutRevenue = () => {
+        axios
+            .put(
+                'http://localhost:8081/api/revenue/10?uid=2',
+                {
+                    name: '123',
+                    value: 1000,
+                    adddate: '2023-03-18T03:31:03.314Z',
+                    description: 'string',
+                },
+                {
+                    headers: {
+                        // Content-Type: 'application/json',
+                        accept: 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            )
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
@@ -47,6 +138,10 @@ const Login = () => {
                 <div>
                     <p>You are logged in with token: {token}</p>
                     <button onClick={handleGetData}>test name</button>
+                    <button onClick={handlePost}>post revenue</button>
+                    <button onClick={handleGetRevenue}>get revenue</button>
+                    <button onClick={handleDeleteRevenue}>delete revenue</button>
+                    <button onClick={handlePutRevenue}>put revenue</button>
                     <button onClick={() => setToken('')}>Logout</button>
                 </div>
             ) : (
