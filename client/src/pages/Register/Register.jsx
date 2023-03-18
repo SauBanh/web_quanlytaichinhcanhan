@@ -6,8 +6,8 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 const Register = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [username, setusername] = useState('');
+    const [name, setname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -33,11 +33,11 @@ const Register = () => {
                                         <table className={cx('auth-form_username')}>
                                             <tr>
                                                 <th>
-                                                <input type="text" className={cx('auth-form_input')} value={firstName}  id="firstName" placeholder="Họ"onChange={(e) => setFirstName(e.target.value)} />
+                                                <input type="text" className={cx('auth-form_input')} value={username}  id="username" placeholder="Nhập User Name"onChange={(e) => setusername(e.target.value)} />
                                                 </th>
                                                 <th></th>
                                                 <th>
-                                                <input type="text" className={cx('auth-form_input')} value={lastName}  id="lastName" placeholder="Tên"onChange={(e) => setLastName(e.target.value)} />
+                                                <input type="text" className={cx('auth-form_input')} value={name}  id="name" placeholder="Nhập Name"onChange={(e) => setname(e.target.value)} />
                                                 </th>
                                             </tr>
                                         </table>
