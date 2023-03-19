@@ -45,29 +45,31 @@ const Register = () => {
                             <div className={cx('auth-form_form')}>
                                 <div className={cx('auth-form_group')}>
                                     <table className={cx('auth-form_username')}>
-                                        <tr>
-                                            <th>
-                                                <input
-                                                    type="text"
-                                                    className={cx('auth-form_input')}
-                                                    value={username}
-                                                    id="username"
-                                                    placeholder="Nhập User Name"
-                                                    onChange={(e) => setusername(e.target.value)}
-                                                />
-                                            </th>
-                                            <th></th>
-                                            <th>
-                                                <input
-                                                    type="text"
-                                                    className={cx('auth-form_input')}
-                                                    value={name}
-                                                    id="name"
-                                                    placeholder="Nhập Name"
-                                                    onChange={(e) => setname(e.target.value)}
-                                                />
-                                            </th>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>
+                                                    <input
+                                                        type="text"
+                                                        className={cx('auth-form_input')}
+                                                        value={username}
+                                                        id="username"
+                                                        placeholder="Nhập User Name"
+                                                        onChange={(e) => setusername(e.target.value)}
+                                                    />
+                                                </th>
+                                                <th></th>
+                                                <th>
+                                                    <input
+                                                        type="text"
+                                                        className={cx('auth-form_input')}
+                                                        value={name}
+                                                        id="name"
+                                                        placeholder="Nhập Name"
+                                                        onChange={(e) => setname(e.target.value)}
+                                                    />
+                                                </th>
+                                            </tr>
+                                        </tbody> 
                                     </table>
                                 </div>
                                 <div className={cx('auth-form_group')}>
