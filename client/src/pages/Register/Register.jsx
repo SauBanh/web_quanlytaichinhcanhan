@@ -115,15 +115,6 @@ const Register = () => {
                                     ĐĂNG KÝ
                                 </button>
                             </div>
-                            <div className={cx('auth-form_text')}>or sign up with:</div>
-                        </div>
-                        <div className={cx('auth-form_socials')}>
-                            <Link to="#" className={cx('auth-form_socials_fb')}>
-                                <span className={cx('auth-form_socials_text')}>Kết nối với Facebook</span>
-                            </Link>
-                            <Link to="#" className={cx('auth-form_socials_gg')}>
-                                <span className={cx('auth-form_socials_text')}>Kết nối với Google</span>
-                            </Link>
                         </div>
                     </form>
                 </div>
