@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import styles from './Login.module.scss';
 import classNames from 'classnames/bind';
 
+import { API_ENDPOINTS } from '../../assets/Api/Api';
+
 import Cookies from 'js-cookie';
 import axios from 'axios';
-
-import api from '../../assets/Api/Api';
 import classes from './Login.module.scss';
 
 const cx = classNames.bind(styles);
@@ -19,13 +19,18 @@ const Login = () => {
     const handleLogin = (event) => {
         event.preventDefault();
 
-        axios
-            .post('http://localhost:8081/api/auth/authenticate', { username, password })
-            .then((response) => {
-                setToken(response.data.token);
-                console.log(response.data);
-            })
-            .catch((error) => console.error(error));
+        // axios
+        //     .post(`${API_URL}/api/auth/authenticate`, { username, password })
+        //     .then((response) => {
+        //         setToken(response.data.token);
+        //         console.log(response.data);
+        //     })
+        //     .catch((error) => console.error(error));
+        return axios.get(API_ENDPOINTS.USERS, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
     };
 
     const handleGetData = () => {
