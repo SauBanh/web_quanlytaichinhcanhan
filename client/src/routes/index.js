@@ -6,6 +6,7 @@ import Profile from '../pages/Profile/Profile';
 import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
 import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
+import NotFound from '../pages/NotFound/NotFound';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -16,6 +17,7 @@ const publicRoutes = [
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Register, layout: null },
     { path: '/ForgotPassword', component: ForgotPassword, layout: null },
+    { path: '/NotFound', component: NotFound, layout: null },
 ];
 
 const privateRoutes = [];

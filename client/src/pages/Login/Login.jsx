@@ -19,7 +19,15 @@ const Login = () => {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-
+        if (!username) {
+            alert('Vui lòng nhập user');
+            return;
+          } else if (!password) {
+            alert('Vui lòng nhập mật khẩu');
+            return;
+          }else if(password.length < 8){
+            alert('Mật khẩu tối thiểu 8 kí tự');
+          }
         const getToken = async () => {
             const result = await tokenServices.token({ username, password });
             // console.log(Cookies.get('token'));
