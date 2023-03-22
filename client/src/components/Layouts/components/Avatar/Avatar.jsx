@@ -7,10 +7,12 @@ import avatar from '../../../../assets/images/avata.jpg';
 const cx = classNames.bind(styles);
 
 function Avatar() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
     return (
         <div className={cx('wrapper')}>
             <img className={cx('avatar')} src={avatar} alt="avatar cá nhân" />
-            <span>Nguyễn Tuấn Anh</span>
+            <span>{user.name}</span>
         </div>
     );
 }

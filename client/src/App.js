@@ -1,6 +1,6 @@
 // các thư viện reactjs
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Fragment } from 'react';
 // sử dụng để hỗ trợ lưu cookie trong reactjs
 import Cookies from 'js-cookie';
@@ -11,6 +11,7 @@ import { publicRoutes, privateRoutes } from './routes';
 import { DefaultLayout } from './components/Layouts';
 
 import classes from './App.module.scss';
+import Profile from './pages/Profile/Profile';
 
 function App() {
     return (
@@ -31,6 +32,8 @@ function App() {
                         />
                     );
                 })}
+                <Route path="*" element={<Navigate to="/404" />} />
+                <Route path="/404" element={<Profile />} />
             </Routes>
         </BrowserRouter>
     );

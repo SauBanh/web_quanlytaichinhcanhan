@@ -13,6 +13,7 @@ const cx = classNames.bind(styles);
 
 function Header() {
     const [activeAction, setActiveAction] = useState(false);
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const isActive = () => {
         setActiveAction(!activeAction);
@@ -26,7 +27,7 @@ function Header() {
                 </div>
 
                 <div onClick={isActive} className={cx('acion')}>
-                    <div className={cx('logo')}>Xin chào Nguyễn Tuấn Anh</div>
+                    <div className={cx('logo')}>Xin chào: {user.name}</div>
                     <div>
                         <FontAwesomeIcon icon={faCaretDown} />
                         {activeAction && (
