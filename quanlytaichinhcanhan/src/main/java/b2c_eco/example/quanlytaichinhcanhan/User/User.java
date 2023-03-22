@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-@Table
+@Table(name="user")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails{
