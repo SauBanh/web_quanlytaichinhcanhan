@@ -1,10 +1,8 @@
-import React from 'react'
-import classes from './Spending.module.scss';
+import React from 'react';
+import SpedingTable from '../../components/Table/SpedingTable/SpedingTable';
 
 const Spending = () => {
-  return (
-    <div>Spending</div>
-  )
-}
+    return <SpedingTable />;
+};
 
-export default Spending
+export default Spending;

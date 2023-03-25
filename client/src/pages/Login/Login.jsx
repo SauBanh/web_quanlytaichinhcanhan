@@ -25,8 +25,12 @@ const Login = () => {
             // console.log(Cookies.get('token'));
             // console.log(result);
             if (result.status === 200) {
-                Cookies.set('token', result.data.token, { expires: 7, path: '/', secure: true });
-            } else {
+                Cookies.set('token', result.data.token, {
+                    expires: new Date(Date.now() + 20 * 60 * 1000),
+                    path: '/',
+                    secure: true,
+                });
+            } else if (result.status === 403) {
                 setIsTrue(false);
                 console.log('error');
             }

@@ -30,8 +30,30 @@ export const postToken = async (path, data, token) => {
     return response;
 };
 
-export const remove = async (path, data) => {
-    const response = await request.delete(path, data);
+export const remove = async (path, token) => {
+    const response = await request.delete(
+        path,
+        // { params: data },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        },
+    );
+    return response;
+};
+
+export const put = async (path, data, token) => {
+    const response = await request.put(
+        path,
+        // { params: data },
+        data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        },
+    );
     return response;
 };
 
