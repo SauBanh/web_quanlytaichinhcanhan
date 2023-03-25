@@ -1,8 +1,12 @@
 package b2c_eco.example.quanlytaichinhcanhan.Spending;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,27 +30,97 @@ public class SpendingController {
     private final SpendingService spendingService;
 
     @GetMapping("/")
-    public List<Spending> getAllRevenues(Authentication authentication){
-        return spendingService.getAllSpds(authentication);
+    public ResponseEntity<Object> getAllSpendings(Authentication authentication){
+        // return spendingService.getAllSpds(authentication);
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("spendings", spendingService.getAllSpds(authentication));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("spendings", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 
     @GetMapping("/{id}")
-    public Spending getRevenue(Authentication authentication, @PathVariable("id") Long id){
-        return spendingService.getSpdWithIds(authentication, id);
+    public ResponseEntity<Object> getSpending(Authentication authentication, @PathVariable("id") Long id){
+        // return spendingService.getSpdWithIds(authentication, id);
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("spending", spendingService.getSpdWithIds(authentication, id));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("spending", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 
     @PostMapping("/")
-    public Spending addRevenue(@RequestBody Spending spending){
-        return spendingService.createUserSpd(spending);
+    public ResponseEntity<Object> addSpending(@RequestBody Spending spending){
+        // return spendingService.createUserSpd(spending);
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("spending", spendingService.createUserSpd(spending));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("spending", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 
     @PutMapping("/{id}")
-    public Spending changeRevenue(@PathVariable("id") Long id, Long uid, @RequestBody Spending spending){
-        return spendingService.changeUserSpd(id, uid, spending);
+    public ResponseEntity<Object> changeSpending(@PathVariable("id") Long id, Long uid, @RequestBody Spending spending){
+        // return spendingService.changeUserSpd(id, uid, spending);
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("spending", spendingService.changeUserSpd(id, uid, spending));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("spending", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRevenue(Authentication authentication, @PathVariable("id") Long id, Long uid){
-        spendingService.deleteSpd(authentication, id, uid);
+    public ResponseEntity<Object> deleteSpending(Authentication authentication, @PathVariable("id") Long id, Long uid){
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            spendingService.deleteSpd(authentication, id, uid);
+            map.put("status", "success");
+            map.put("message", "deleted");
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("message", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 }

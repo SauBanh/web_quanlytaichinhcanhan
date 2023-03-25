@@ -48,12 +48,14 @@ public class DeptService {
         }
     }
 
-    public void deleteDept(Authentication authentication, Long id, Long uid){
+    public void deleteDept(Authentication authentication, Long id, Long uid) throws Exception{
         User user = userService.getUser(authentication).orElse(null);
         Long uidCheck = user.getId();
         if(uid == uidCheck){
             deptRepository.deleteById(id);
-        }
+            return;
+        } 
+        else throw new Exception("Not found!");
     }
 
 }

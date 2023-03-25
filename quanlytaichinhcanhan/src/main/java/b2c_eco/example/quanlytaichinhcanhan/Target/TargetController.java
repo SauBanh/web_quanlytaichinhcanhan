@@ -1,8 +1,12 @@
 package b2c_eco.example.quanlytaichinhcanhan.Target;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,27 +29,96 @@ public class TargetController {
     private final TargetService targetService;
 
     @GetMapping("/")
-    public List<Target> getAllRevenues(Authentication authentication){
-        return targetService.getAllTars(authentication);
+    public ResponseEntity<Object> getAllTargets(Authentication authentication){
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("targets", targetService.getAllTars(authentication));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("targets", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 
     @GetMapping("/{id}")
-    public Target getRevenue(Authentication authentication, @PathVariable("id") Long id){
-        return targetService.getTarWithIdt(authentication, id);
+    public ResponseEntity<Object> getTarget(Authentication authentication, @PathVariable("id") Long id){
+        // return targetService.getTarWithIdt(authentication, id);
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("target", targetService.getTarWithIdt(authentication, id));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("target", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 
     @PostMapping("/")
-    public Target addRevenue(@RequestBody Target target){
-        return targetService.createUserTar(target);
+    public ResponseEntity<Object> addTarget(@RequestBody Target target){
+        // return targetService.createUserTar(target);
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("target", targetService.createUserTar(target));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("target", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 
     @PutMapping("/{id}")
-    public Target changeRevenue(@PathVariable("id") Long id, Long uid, @RequestBody Target target){
-        return targetService.changeUserTar(id, uid, target);
+    public ResponseEntity<Object> changeTarget(@PathVariable("id") Long id, Long uid, @RequestBody Target target){
+        // return targetService.changeUserTar(id, uid, target);
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("target", targetService.changeUserTar(id, uid, target));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("target", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRevenue(Authentication authentication, @PathVariable("id") Long id, Long uid){
-        targetService.deleteTar(authentication, id, uid);
+    public ResponseEntity<Object> deleteTarget(Authentication authentication, @PathVariable("id") Long id, Long uid){
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            targetService.deleteTar(authentication, id, uid);
+            map.put("status", "success");
+            map.put("message", "deleted");
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("message", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
     }
 }

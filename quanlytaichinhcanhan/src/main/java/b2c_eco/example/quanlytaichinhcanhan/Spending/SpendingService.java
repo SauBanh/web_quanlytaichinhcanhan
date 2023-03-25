@@ -41,11 +41,12 @@ public class SpendingService {
         return spendingRepository.save(spending);
     }
 
-    public void deleteSpd(Authentication authentication, Long id, Long uid){
+    public void deleteSpd(Authentication authentication, Long id, Long uid) throws Exception{
         User user = userService.getUser(authentication).orElse(null);
         Long uidCheck = user.getId();
         if(uid == uidCheck){
             spendingRepository.deleteById(id);
-        }
+        } 
+        else throw new Exception("Not found!");
     }
 }
