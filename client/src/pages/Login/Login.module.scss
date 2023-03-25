@@ -1,4 +1,4 @@
-.modal{
+.modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -7,50 +7,51 @@
     display: flex;
     background-image: url(../../assets/images/background.jpg);
     background-size: 100%;
-    .modal_overlay{
+    .modal_overlay {
         position: absolute;
         width: 100%;
-        height: 100%;  
+        height: 100%;
     }
-    .modal_body{
+    .modal_body {
         background-color: rgb(255, 255, 255);
         margin: auto;
         position: relative;
         z-index: 1;
-        border-radius: 5px; 
+        border-radius: 5px;
         padding-bottom: 60px;
-        box-shadow: 5px 5px 5px 2px rgba(0, 0, 0,0.5);
-        .modal_inner{
-            width: 500px;        
-            .auth-form{
-                padding: 0 50px;              
-                .auth-form_header{
+
+        box-shadow: 0px 0px 40px 0px rgb(70 100 128 / 66%);
+        .modal_inner {
+            width: 500px;
+            .auth-form {
+                padding: 0 50px;
+                .auth-form_header {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
                     padding-left: 12px;
-                    padding-right: 12px; 
+                    padding-right: 12px;
                     margin: 20px 0 30px 0;
-                    .auth-form_heading{
+                    .auth-form_heading {
                         margin: 32px 0px;
                         font-size: 32px;
                         font-weight: 100;
                         color: black;
                     }
-                    .auth-form_switch-btn{
+                    .auth-form_switch-btn {
                         font-size: 20px;
                         font-weight: 100;
                         color: rgb(255, 0, 0);
                         cursor: pointer;
                         text-decoration: none;
                         transition: transform 0.2s ease-out;
-                        &:hover{
+                        &:hover {
                             transform: scale(1.1);
-                            }
+                        }
                     }
                 }
-                .auth-form_form{
-                    .auth-form_input{
+                .auth-form_form {
+                    .auth-form_input {
                         width: 100%;
                         height: 40px;
                         margin-top: 16px;
@@ -58,32 +59,32 @@
                         font-size: 14px;
                         border: 1px solid rgb(173, 173, 173);
                         border-radius: 4px;
-                        box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.3)
+                        // box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.3)
                         /* outline: none; */
                     }
                 }
-                .auth-form_aside{
+                .auth-form_aside {
                     margin-top: 18px;
-                    .auth-form_text{
+                    .auth-form_text {
                         font-size: 16px;
                         line-height: 16px;
                         text-align: center;
                         padding: 12px;
-                        .auth-form_link{
+                        .auth-form_link {
                             color: red;
                             text-decoration: none;
                         }
                         transition: transform 0.2s ease-out;
-                        &:hover{
+                        &:hover {
                             transform: scale(1.1);
-                            }
+                        }
                     }
                 }
-                .auth-form_btn{
+                .auth-form_btn {
                     padding-top: 80px;
                     display: flex;
                     justify-content: center;
-                    .btn{
+                    .btn {
                         min-width: 142px;
                         height: 36px;
                         border: none;
@@ -92,15 +93,15 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        padding: 0,12px;
+                        padding: 0, 12px;
                         border-radius: 3px;
                         background-color: red;
                         color: white;
                         transition: transform 0.2s ease-out;
-                        &:hover{
+                        &:hover {
                             transform: scale(1.1);
-                            }
-                        box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.3)
+                        }
+                        // box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.3)
                     }
                 }
             }

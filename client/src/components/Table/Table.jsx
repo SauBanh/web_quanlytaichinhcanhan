@@ -16,7 +16,7 @@ function Table({ data }) {
 
     const renderEditForm = () => (
         <Fragment>
-            <td>{isedit}</td>
+            <td></td>
             <td>
                 <input ref={inputElement} type="text" />
             </td>
@@ -45,7 +45,7 @@ function Table({ data }) {
                 <tr className={cx('nonehover')}>
                     <th>Stt</th>
                     <th>Loại doanh thu</th>
-                    <th>Thời gian (dd-mm-yy)</th>
+                    <th>Ngày thêm</th>
                     <th>Số tiền</th>
                     <th>Sửa</th>
                     <th>Xóa</th>
@@ -53,26 +53,26 @@ function Table({ data }) {
             </thead>
 
             <tbody>
-                {data.map((dataFake) => (
-                    <tr key={dataFake.id}>
-                        {isedit === dataFake.id ? (
+                {data.map((dataFake, index) => (
+                    <tr key={dataFake.idr}>
+                        {isedit === dataFake.idr ? (
                             renderEditForm()
                         ) : (
                             <Fragment>
                                 <td>
-                                    <p>{dataFake.id}</p>
+                                    <p>{index + 1}</p>
                                 </td>
                                 <td>
-                                    <p>{dataFake.title}</p>
+                                    <p>{dataFake.name}</p>
                                 </td>
                                 <td>
-                                    <p>{dataFake.date}</p>
+                                    <p>{dataFake.adddate}</p>
                                 </td>
                                 <td>
-                                    <p>{dataFake.moeny}</p>
+                                    <p>{dataFake.value}</p>
                                 </td>
                                 <td>
-                                    <button onClick={() => handleEdit(dataFake.id)}>Sửa</button>
+                                    <button onClick={() => handleEdit(dataFake.idr)}>Sửa</button>
                                 </td>
                                 <td>
                                     <button>Xóa</button>

@@ -14,6 +14,10 @@ const ForgotPassword = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!email) {
+            alert('Vui lòng nhập email');
+            return;
+          } 
         // Gọi API đăng nhập tại đây
     };
     return (
