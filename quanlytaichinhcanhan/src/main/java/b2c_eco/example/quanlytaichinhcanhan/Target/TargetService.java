@@ -41,11 +41,12 @@ public class TargetService {
         return targetRepositoty.save(target);
     }
 
-    public void deleteTar(Authentication authentication, Long id, Long uid){
+    public void deleteTar(Authentication authentication, Long id, Long uid) throws Exception{
         User user = userService.getUser(authentication).orElse(null);
         Long uidCheck = user.getId();
         if(uid == uidCheck){
             targetRepositoty.deleteById(id);
         }
+        else throw new Exception("Not found!");
     }
 }
