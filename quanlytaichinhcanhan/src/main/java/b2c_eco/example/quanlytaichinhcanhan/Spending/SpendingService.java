@@ -49,4 +49,10 @@ public class SpendingService {
         } 
         else throw new Exception("Not found!");
     }
+
+    public List<Object> getSpendingCate(Authentication authentication){
+        User user = userService.getUser(authentication).orElse(null);
+        Long uid = user.getId();
+        return spendingRepository.sumSpendingValueByCategory(uid);
+    }
 }
