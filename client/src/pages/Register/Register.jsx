@@ -19,39 +19,30 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (username.trim() === '') {
-            alert('Vui lòng nhập User Name');
-            return;
-        }
-        if (name.trim() === '') {
-            alert('Vui lòng nhập Name');
-            return;
-        }
-        if (email.trim() === '') {
-            alert('Vui lòng nhập Email');
-            return;
-        }
-        if (password.trim() === '') {
-            alert('Vui lòng nhập Mật Khẩu');
-            return;
-        }else if (password.length < 8 ) {
-            alert('Mật khẩu tối thiểu 8 kí tự');
-            return;
-        }
-        if (password !== confirmPassword) {
-            alert('Mật khẩu không trùng khớp');
-            return;
-        }
-        // axios
-        //     .post('http://localhost:8081/api/auth/register', {
-        //         username: username,
-        //         name: name,
-        //         password: password,
-        //         email: email,
-        //     })
-        //     .then((response) => console.log(response.data))
-        //     .catch((error) => console.error(error));
-        // Gọi API đăng ký tại đây
+        // if (username.trim() === '') {
+        //     alert('Vui lòng nhập User Name');
+        //     return;
+        // }
+        // if (name.trim() === '') {
+        //     alert('Vui lòng nhập Name');
+        //     return;
+        // }
+        // if (email.trim() === '') {
+        //     alert('Vui lòng nhập Email');
+        //     return;
+        // }
+        // if (password.trim() === '') {
+        //     alert('Vui lòng nhập Mật Khẩu');
+        //     return;
+        // }else if (password.length < 8 ) {
+        //     alert('Mật khẩu tối thiểu 8 kí tự');
+        //     return;
+        // }
+        // if (password !== confirmPassword) {
+        //     alert('Mật khẩu không trùng khớp');
+        //     return;
+        // }
+
         const getToken = async () => {
             const result = await registerServices.register({ username, name, password, email });
             console.log(result);
@@ -131,7 +122,7 @@ const Register = () => {
                                             required
                                         />
                                     </div>
-                                    <div className={cx('auth-form_group')}>
+                                    {/* <div className={cx('auth-form_group')}>
                                         <input
                                             type="password"
                                             className={cx('auth-form_input')}
@@ -140,7 +131,7 @@ const Register = () => {
                                             placeholder="Nhập Mật Khẩu"
                                             onChange={(e) => setConfirmPassword(e.target.value)}
                                         />
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className={cx('auth-form_aside')}>
                                     <p className={cx('auth-form_text')}>
