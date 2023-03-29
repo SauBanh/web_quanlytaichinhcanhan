@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import b2c_eco.example.quanlytaichinhcanhan.Spending.SpendingRepository.SumSpend;
 import b2c_eco.example.quanlytaichinhcanhan.User.User;
 import b2c_eco.example.quanlytaichinhcanhan.User.UserService;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class SpendingService {
         else throw new Exception("Not found!");
     }
 
-    public List<Object> getSpendingCate(Authentication authentication){
+    public List<SumSpend> getSpendingCate(Authentication authentication){
         User user = userService.getUser(authentication).orElse(null);
         Long uid = user.getId();
         return spendingRepository.sumSpendingValueByCategory(uid);

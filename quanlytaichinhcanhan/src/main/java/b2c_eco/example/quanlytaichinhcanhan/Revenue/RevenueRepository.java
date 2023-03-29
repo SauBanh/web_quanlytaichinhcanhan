@@ -11,5 +11,5 @@ public interface RevenueRepository extends JpaRepository<Revenue, Long>{
     List<Revenue> findAllById(Long id);
     Revenue findByIdAndIdr(Long id, Long idr);
     @Query(nativeQuery = true, value="SELECT * FROM revenue WHERE revenue.id = ?1 ORDER BY revenue.idr DESC LIMIT 7")
-    List<Object> getTop7Recent(Long id);
+    List<Revenue> getTop7Recent(Long id);
 }

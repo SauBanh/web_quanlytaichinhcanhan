@@ -136,7 +136,7 @@ public class SpendingController {
         } catch (Exception e) {
             map.clear();
             map.put("status", "fail");
-            map.put("data", null);
+            map.put("data", spendingService.getSpendingCate(authentication));
             res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return res;
