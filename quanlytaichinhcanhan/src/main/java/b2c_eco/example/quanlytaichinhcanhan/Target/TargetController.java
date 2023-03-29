@@ -46,7 +46,7 @@ public class TargetController {
         return res;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/")
     public ResponseEntity<Object> getTarget(Authentication authentication, @PathVariable("id") Long id){
         // return targetService.getTarWithIdt(authentication, id);
         ResponseEntity<Object> res;
@@ -84,8 +84,8 @@ public class TargetController {
         return res;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> changeTarget(@PathVariable("id") Long id, Long uid, @RequestBody Target target){
+    @PutMapping("/{id}/{uid}")
+    public ResponseEntity<Object> changeTarget(@PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody Target target){
         // return targetService.changeUserTar(id, uid, target);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
@@ -103,8 +103,8 @@ public class TargetController {
         return res;
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteTarget(Authentication authentication, @PathVariable("id") Long id, Long uid){
+    @DeleteMapping("/{id}/{uid}")
+    public ResponseEntity<Object> deleteTarget(Authentication authentication, @PathVariable("id") Long id, @PathVariable("uid") Long uid){
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
         try {

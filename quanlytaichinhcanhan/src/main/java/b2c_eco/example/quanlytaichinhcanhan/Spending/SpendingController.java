@@ -86,8 +86,8 @@ public class SpendingController {
         return res;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> changeSpending(@PathVariable("id") Long id, Long uid, @RequestBody Spending spending){
+    @PutMapping("/{id}/{uid}")
+    public ResponseEntity<Object> changeSpending(@PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody Spending spending){
         // return spendingService.changeUserSpd(id, uid, spending);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
@@ -105,8 +105,8 @@ public class SpendingController {
         return res;
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteSpending(Authentication authentication, @PathVariable("id") Long id, Long uid){
+    @DeleteMapping("/{id}/{uid}")
+    public ResponseEntity<Object> deleteSpending(Authentication authentication, @PathVariable("id") Long id, @PathVariable("uid") Long uid){
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
         try {
