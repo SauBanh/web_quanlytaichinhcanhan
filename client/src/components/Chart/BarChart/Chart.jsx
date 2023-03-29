@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
+import * as statistical from '../../../utils/apiServices/statistical';
+import Cookies from 'js-cookie';
 
 const data = [
     {
@@ -33,6 +36,14 @@ const data = [
 ];
 
 export default function Chart() {
+    const [apiTop7, setApiTop7] = useState([]);
+
+    const token = Cookies.get('token');
+
+    // useEffect(() => {
+
+    // }, []);
+
     return (
         <BarChart
             width={900}
@@ -51,7 +62,7 @@ export default function Chart() {
             <Tooltip />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="pv" fill="#8884d8" background={{ fill: '#eee' }} />
+            <Bar dataKey="pv" fill="#1976d2" background={{ fill: '#eee' }} />
         </BarChart>
     );
 }

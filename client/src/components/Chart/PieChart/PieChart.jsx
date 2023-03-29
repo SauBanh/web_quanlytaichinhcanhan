@@ -73,7 +73,7 @@ export default function Chart() {
                 cy={200}
                 innerRadius={60}
                 outerRadius={80}
-                fill="#8884d8"
+                fill="#1976d2"
                 dataKey="value"
                 onMouseEnter={onPieEnter}
             />

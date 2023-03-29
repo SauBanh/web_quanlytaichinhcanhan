@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import Button from '@mui/material/Button';
+// import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
+import Skeleton from '@mui/material/Skeleton';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
@@ -20,15 +25,18 @@ const Revenue = () => {
     const [titleRevenue, setTitleReveue] = useState('');
     const [valueRevenue, setValueReveue] = useState('');
     const [descRevenue, setDescReveue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const user = JSON.parse(localStorage.getItem('user'));
 
     const token = Cookies.get('token');
 
     useEffect(() => {
+        setIsLoading(true);
         const getapiRevenue = async () => {
             const result = await revenueServices.getRevenue(token);
             if (result.status === 200) {
                 setRevenueMonth(result.data.revenues);
+                setIsLoading(false);
             } else if (result.status === 403) {
                 console.log('token hết hạn');
             }
@@ -145,19 +153,45 @@ const Revenue = () => {
             <div className={cx('content')}>
                 <div className={cx('title')}>
                     <h2>Doanh thu hàng tháng</h2>
-                    <button onClick={() => setIsAddDT(!isaddDT)}>
+                    <Button onClick={() => setIsAddDT(!isaddDT)}>
                         <FontAwesomeIcon icon={faCirclePlus} />
                         <span>Thêm</span>
-                    </button>
+                    </Button>
                 </div>
                 {isaddDT && renderAddHangThang()}
-                <Wrapper>
-                    {revenueMonth.length === 0 ? (
-                        <p>Chưa tạo doanh thu tháng này</p>
-                    ) : (
-                        <Table getidr={getidr} sendData={sendData} data={revenueMonth} />
-                    )}
-                </Wrapper>
+                {isLoading ? (
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '300px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <div style={{ width: '100%', transform: 'translateY(40px)' }}>
+                            <Wrapper>
+                                <Box sx={{ width: '100%' }}>
+                                    <Skeleton height={'70px'} animation="wave" />
+                                    <Skeleton height={'70px'} animation="wave" />
+                                    <Skeleton height={'70px'} animation="wave" />
+                                    <Skeleton height={'70px'} animation="wave" />
+                                    <Skeleton height={'70px'} animation="wave" />
+                                </Box>
+                            </Wrapper>
+                        </div>
+                    </div>
+                ) : (
+                    <Wrapper>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            {/* {revenueMonth.length === 0 ? (
+                                <p>Chưa tạo doanh thu tháng này</p>
+                            ) : ( */}
+                            <Table getidr={getidr} sendData={sendData} data={revenueMonth} />
+                            {/* )} */}
+                        </div>
+                    </Wrapper>
+                )}
             </div>
         </div>
     );

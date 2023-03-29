@@ -14,54 +14,40 @@ const cx = classNames.bind(styles);
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isTrue, setIsTrue] = useState(true);
+    const [isTrue, setIsTrue] = useState(false);
     const token = Cookies.get('token');
     const navigate = useNavigate();
 
     const {
         register,
         handleSubmit,
-        watch,
+        // watch,
         formState: { errors },
     } = useForm();
 
-    // const onSubmit = (data) => {
-    //     console.log(data);
-
-    // };
-
-    const handleLogin = async (event) => {
-        event.preventDefault();
-        // if (!username) {
-        //     alert('Vui lòng nhập user');
-        //     return;
-        // } else if (!password) {
-        //     alert('Vui lòng nhập mật khẩu');
-        //     return;
-        // } else if (password.length < 8) {
-        //     alert('Mật khẩu tối thiểu 8 kí tự');
-        // }
+    const onSubmit = async (data) => {
         const getToken = async () => {
-            const result = await tokenServices.token({ username, password });
+            const result = await tokenServices.token(data);
             if (result.status === 200) {
                 Cookies.set('token', result.data.token, {
                     expires: new Date(Date.now() + 20 * 60 * 1000),
                     path: '/',
                     secure: true,
                 });
-            } else if (result.status === 403) {
-                setIsTrue(false);
-                console.log('Sai tài khoản hoặc mật khẩu');
+            } else if (result === 1) {
+                setIsTrue(true);
             }
         };
         await getToken();
         const getUser = async () => {
             const result = await userServices.currentUser(Cookies.get('token'));
-            await localStorage.setItem('user', JSON.stringify(result));
+            if (result.status === 200) {
+                await localStorage.setItem('user', JSON.stringify(result.data));
+                navigate('/');
+                console.log('Đăng nhập thành công');
+            }
         };
         await getUser();
-        console.log('Đăng nhập thành công');
-        navigate('/');
     };
 
     if (token) {
@@ -72,7 +58,7 @@ const Login = () => {
                 <div className={cx('modal_overlay')}></div>
                 <div className={cx('modal_body')}>
                     <div className={cx('modal_inner')}>
-                        <form onSubmit={handleLogin} id="my-form">
+                        <form onSubmit={handleSubmit(onSubmit)} id="my-form">
                             <div className={cx('auth-form')}>
                                 <div className={cx('auth-form_header')}>
                                     <h3 className={cx('auth-form_heading')}>Đăng Nhập</h3>
@@ -84,45 +70,29 @@ const Login = () => {
                                 <div className={cx('auth-form_form')}>
                                     <div className={cx('auth-form_group')}>
                                         <input
-                                            type="text"
-                                            className={cx('auth-form_input')}
-                                            value={username}
-                                            id="email"
-                                            placeholder="Nhập Email"
-                                            onChange={(e) => setUsername(e.target.value)}
-                                            required
-                                        />
-                                        {/* <input
                                             onChange={(e) => setUsername(e.target.value)}
                                             placeholder="Nhập Email"
                                             type="text"
                                             className={cx('auth-form_input')}
                                             defaultValue={username}
                                             {...register('username', { required: true })}
-                                        /> */}
+                                        />
                                     </div>
                                     {errors.username && <p className={cx('require_error')}>Chưa nhập user name</p>}
                                     <div className={cx('auth-form_group')}>
                                         <input
-                                            type="password"
-                                            className={cx('auth-form_input')}
-                                            value={password}
-                                            id="password"
-                                            placeholder="Nhập Mật Khẩu"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            required
-                                        />
-                                        {/* <input
                                             type="text"
                                             onChange={(e) => setPassword(e.target.value)}
                                             defaultValue={password}
                                             placeholder="Nhập Mật Khẩu"
                                             className={cx('auth-form_input')}
                                             {...register('password', { required: true })}
-                                        /> */}
-                                        {/* errors will return when field validation fails  */}
+                                        />
                                         {errors.password && (
                                             <p className={cx('require_error')}>This field is required</p>
+                                        )}
+                                        {isTrue && (
+                                            <p className={cx('require_error')}>Sai tên đăng nhập hoặc đăng ký</p>
                                         )}
                                     </div>
                                 </div>
@@ -143,17 +113,6 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-            // <form onSubmit={handleSubmit(onSubmit)}>
-            //     {/* register your input into the hook by invoking the "register" function */}
-            //     <input defaultValue="test" {...register('example')} />
-
-            //     {/* include validation with required or other standard HTML validation rules */}
-            //     <input {...register('exampleRequired', { required: true })} />
-            //     {/* errors will return when field validation fails  */}
-            //     {errors.exampleRequired && <span>This field is required</span>}
-
-            //     <input type="submit" />
-            // </form>
         );
     }
 };

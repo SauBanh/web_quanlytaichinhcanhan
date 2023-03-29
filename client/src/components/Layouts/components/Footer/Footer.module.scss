@@ -1,8 +1,10 @@
 .wrapper {
     height: 60px;
-    background-color: rgb(0 0 0 / 14%);
+    background-color: #1976d2;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--white-color);
+    font-weight: 700;
 }

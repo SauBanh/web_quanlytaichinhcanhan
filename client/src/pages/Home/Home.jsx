@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from '../../components/Chart/BarChart/Chart';
+
 import PieChart from '../../components/Chart/PieChart/PieChart';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import styles from './Home.module.scss';

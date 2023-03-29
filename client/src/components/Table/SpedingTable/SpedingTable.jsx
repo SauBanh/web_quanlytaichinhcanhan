@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@mui/material/Button';
 
 import classNames from 'classnames/bind';
 import styles from './SpedingTable.module.scss';
@@ -66,10 +67,10 @@ function SpedingTable({ dataFake }) {
                                 <p>1</p>
                             </td>
                             <td>
-                                <button>Sửa</button>
+                                <Button>Sửa</Button>
                             </td>
                             <td>
-                                <button>Xóa</button>
+                                <Button>Xóa</Button>
                             </td>
                         </tr>
                     ))}

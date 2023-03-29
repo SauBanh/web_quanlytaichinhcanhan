@@ -8,9 +8,6 @@ import NotFound from './pages/NotFound/NotFound';
 import { publicRoutes, privateRoutes } from './routes';
 import { DefaultLayout } from './components/Layouts';
 
-import classes from './App.module.scss';
-import Profile from './pages/Profile/Profile';
-
 function App() {
     return (
         <BrowserRouter>

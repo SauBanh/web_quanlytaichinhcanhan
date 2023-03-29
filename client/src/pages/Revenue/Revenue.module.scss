@@ -1,7 +1,9 @@
 .wrapper {
+    width: 100%;
     .content {
         padding: 10px 0;
         min-height: 593px;
+        width: 100%;
         .formadd {
             margin: 15px 0;
             form {
@@ -37,9 +39,6 @@
                 font-size: 16px;
             }
             button {
-                padding: 8px 20px;
-                border-radius: 5px;
-                border: none;
                 background-color: #39c14e;
                 color: #fff;
                 span {
