@@ -29,5 +29,5 @@ public class Dept {
     private Double valuepertime;
     private Date adddate;
     @Column(name="`desc`")
-    private String description;
+    private String desc;
 }

@@ -87,7 +87,7 @@ public class RevenueController {
     }
 
     @PutMapping("/{id}/{uid}")
-    public ResponseEntity<Object> changeRevenue(@PathVariable("id") Long id, Long uid, @RequestBody Revenue revenue){
+    public ResponseEntity<Object> changeRevenue(@PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody Revenue revenue){
         // return revenueService.changeUserRev(id, uid, revenue);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
@@ -106,7 +106,7 @@ public class RevenueController {
     }
 
     @DeleteMapping("/{id}/{uid}")
-    public ResponseEntity<Object> deleteRevenue(Authentication authentication, @PathVariable("id") Long id, Long uid){
+    public ResponseEntity<Object> deleteRevenue(Authentication authentication, @PathVariable("id") Long id, @PathVariable("uid") Long uid){
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
         try {

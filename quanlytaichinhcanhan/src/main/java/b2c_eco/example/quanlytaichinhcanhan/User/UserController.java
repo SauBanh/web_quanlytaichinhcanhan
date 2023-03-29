@@ -30,10 +30,10 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
-    @GetMapping("/")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+    // @GetMapping("/")
+    // public List<User> getAllUsers() {
+    //     return userRepository.findAll();
+    // }
 
     @GetMapping("/user")
     public Optional<User> getUser(Authentication authentication) {
