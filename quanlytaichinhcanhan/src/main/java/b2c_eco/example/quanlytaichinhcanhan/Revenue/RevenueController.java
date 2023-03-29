@@ -123,4 +123,22 @@ public class RevenueController {
         }
         return res;
     }
+
+    @GetMapping("/calc")
+    public ResponseEntity<Object> getTopSeven(Authentication authentication){
+        ResponseEntity<Object> res;
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            map.put("status", "success");
+            map.put("data", revenueService.topSeven(authentication));
+            
+            res = new ResponseEntity<Object>(map,HttpStatus.OK);
+        } catch (Exception e) {
+            map.clear();
+            map.put("status", "fail");
+            map.put("data", null);
+            res = new ResponseEntity<Object>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return res;
+    }
 }

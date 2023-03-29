@@ -35,8 +35,8 @@ const data = [
 export default function Chart() {
     return (
         <BarChart
-            width={500}
-            height={300}
+            width={900}
+            height={500}
             data={data}
             margin={{
                 top: 5,

@@ -28,5 +28,5 @@ public class Revenue {
     private Double value;
     private Date adddate;
     @Column(name="`desc`")
-    private String description;
+    private String desc;
 }

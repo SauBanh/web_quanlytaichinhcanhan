@@ -49,4 +49,10 @@ public class RevenueService {
         } 
         else throw new Exception("Not found!");
     }
+
+    public List<Object> topSeven(Authentication authentication){
+        User user = userService.getUser(authentication).orElse(null);
+        Long uid = user.getId();
+        return revenueRepository.getTop7Recent(uid);
+    }
 }

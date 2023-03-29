@@ -23,7 +23,7 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('money')}>
-                    <FontAwesomeIcon icon={faWallet} /> 25.000.000 vnđ
+                    <FontAwesomeIcon icon={faWallet} /> {user.money} vnđ
                 </div>
 
                 <div onClick={isActive} className={cx('acion')}>

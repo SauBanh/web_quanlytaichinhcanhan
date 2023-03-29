@@ -4,7 +4,29 @@ import classNames from 'classnames/bind';
 import styles from './SpedingTable.module.scss';
 const cx = classNames.bind(styles);
 
-function SpedingTable() {
+function SpedingTable({ dataFake }) {
+    const categorys = [
+        {
+            idc: 1,
+            name: 'Giải trí',
+        },
+        {
+            idc: 2,
+            name: 'Ăn uống',
+        },
+        {
+            idc: 3,
+            name: 'Sức khỏe',
+        },
+        {
+            idc: 4,
+            name: 'Mua sắm',
+        },
+        {
+            idc: 5,
+            name: 'Sinh hoạt',
+        },
+    ];
     return (
         <div className={cx('warpper')}>
             <table>
@@ -13,6 +35,7 @@ function SpedingTable() {
                         <th>Stt</th>
                         <th>Loại doanh thu</th>
                         <th>Ngày thêm</th>
+                        <th>Danh mục</th>
                         <th>Số tiền</th>
                         <th>Chi tiết</th>
                         <th>Sửa</th>
@@ -21,29 +44,35 @@ function SpedingTable() {
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>
-                            <p>1</p>
-                        </td>
-                        <td>
-                            <p>1</p>
-                        </td>
-                        <td>
-                            <p>1</p>
-                        </td>
-                        <td>
-                            <p>1</p>
-                        </td>
-                        <td>
-                            <p>1</p>
-                        </td>
-                        <td>
-                            <button>Sửa</button>
-                        </td>
-                        <td>
-                            <button>Xóa</button>
-                        </td>
-                    </tr>
+                    {dataFake.map((data, index) => (
+                        <tr key={index}>
+                            <td>
+                                <p>{index + 1}</p>
+                            </td>
+                            <td>
+                                <p>{data.name}</p>
+                            </td>
+                            <td>
+                                <p>{data.adddate}</p>
+                            </td>
+                            {/* {console.log(categorys[data.idc - 1])} */}
+                            <td>
+                                <p>{categorys[data.idc - 1].name}</p>
+                            </td>
+                            <td>
+                                <p>1</p>
+                            </td>
+                            <td>
+                                <p>1</p>
+                            </td>
+                            <td>
+                                <button>Sửa</button>
+                            </td>
+                            <td>
+                                <button>Xóa</button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

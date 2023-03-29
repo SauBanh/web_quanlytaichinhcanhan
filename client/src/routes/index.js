@@ -13,7 +13,7 @@ const publicRoutes = [
     { path: '/accumulate', component: Accumulate },
     { path: '/revenue', component: Revenue },
     { path: '/spending', component: Spending },
-    { path: '/404', component: Profile, layout: null },
+    { path: '/404', component: NotFound, layout: null },
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Register, layout: null },
     { path: '/ForgotPassword', component: ForgotPassword, layout: null },

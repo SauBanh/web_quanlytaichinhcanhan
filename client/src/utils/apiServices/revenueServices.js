@@ -20,7 +20,7 @@ export const getRevenue = async (token) => {
 
 export const delRevenue = async (idr, currentUser, token) => {
     try {
-        const path = `/revenue/${idr}?uid=${currentUser}`;
+        const path = `/revenue/${idr}/{uid}?uid=${currentUser}`;
         const res = await request.remove(path, token);
         return res;
     } catch (error) {
@@ -30,7 +30,7 @@ export const delRevenue = async (idr, currentUser, token) => {
 
 export const putRevenue = async (idr, currentUser, data, token) => {
     try {
-        const path = `/revenue/${idr}?uid=${currentUser}`;
+        const path = `/revenue/${idr}/{uid}?uid=${currentUser}`;
         const res = await request.put(path, data, token);
         return res;
     } catch (error) {

@@ -44,7 +44,7 @@ function Table({ getidr, sendData, data }) {
             </td>
             <td></td>
             <td>
-                <input type="number" value={input2} required onChange={(e) => setInput2(e.target.value)} />
+                <input type="number" value={input2} min="1" required onChange={(e) => setInput2(e.target.value)} />
             </td>
             <td>
                 <input type="text" value={input3} required onChange={(e) => setInput3(e.target.value)} />
@@ -99,7 +99,7 @@ function Table({ getidr, sendData, data }) {
                                         <p>{dataFake.value}</p>
                                     </td>
                                     <td>
-                                        <p>{dataFake.description}</p>
+                                        <p>{dataFake.desc}</p>
                                     </td>
                                     <td>
                                         <button onClick={() => handleEdit(dataFake.idr)}>Sửa</button>

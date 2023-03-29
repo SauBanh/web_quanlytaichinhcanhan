@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 
 const Revenue = () => {
     const [isaddDT, setIsAddDT] = useState(false);
-    const [isAddThem, setIsAddThem] = useState(false);
+    // const [isAddThem, setIsAddThem] = useState(false);
     const [revenueMonth, setRevenueMonth] = useState([]);
     const [titleRevenue, setTitleReveue] = useState('');
     const [valueRevenue, setValueReveue] = useState('');
@@ -28,66 +28,13 @@ const Revenue = () => {
         const getapiRevenue = async () => {
             const result = await revenueServices.getRevenue(token);
             if (result.status === 200) {
-                setRevenueMonth(result.data);
-            } else {
+                setRevenueMonth(result.data.revenues);
+            } else if (result.status === 403) {
                 console.log('token hết hạn');
             }
         };
         getapiRevenue();
     }, []);
-
-    // console.log(revenueMonth);s
-    const datasFake = [
-        {
-            idr: 1,
-            name: 'Lương tháng 1',
-            adddate: '30-01-2023',
-            value: 3000000,
-            description: 'test',
-        },
-        {
-            idr: 2,
-            name: 'Lương tháng 2',
-            adddate: '30-02-2023',
-            value: 7000000,
-            description: 'test',
-        },
-        {
-            idr: 3,
-            name: 'Lương tháng 3',
-            adddate: '30-03-2023',
-            value: 5000000,
-            description: 'test',
-        },
-        {
-            idr: 4,
-            name: 'Lương tháng 4',
-            adddate: '30-04-2023',
-            value: 3000000,
-            description: 'test',
-        },
-        {
-            idr: 5,
-            name: 'Lương tháng 5',
-            adddate: '30-05-2023',
-            value: 3000000,
-            description: 'test',
-        },
-        {
-            idr: 6,
-            name: 'Lương tháng 6',
-            adddate: '30-06-2023',
-            value: 8000000,
-            description: 'test',
-        },
-        {
-            idr: 7,
-            name: 'Lương tháng 7',
-            adddate: '30-07-2023',
-            value: 9000000,
-            description: 'test',
-        },
-    ];
 
     const handleAddRevenueMonth = (event) => {
         event.preventDefault();
@@ -100,12 +47,12 @@ const Revenue = () => {
                     name: titleRevenue,
                     value: Number(valueRevenue),
                     adddate: d,
-                    description: descRevenue,
+                    desc: descRevenue,
                 },
                 token,
             );
             if (result.status === 200) {
-                setRevenueMonth((prev) => [...prev, result.data]);
+                setRevenueMonth((prev) => [...prev, result.data.revenue]);
                 console.log('thêm thành công');
             }
         };
@@ -132,6 +79,7 @@ const Revenue = () => {
                         onChange={(e) => setValueReveue(e.target.value)}
                         value={valueRevenue}
                         placeholder="Số tiền"
+                        min="1"
                         required
                     />
                     <input
@@ -148,19 +96,6 @@ const Revenue = () => {
         </div>
     );
 
-    const renderAddThem = () => (
-        <div className={cx('formadd')}>
-            <Wrapper>
-                <form action="">
-                    <input type="text" placeholder="Loại doanh thu" />
-                    <input type="number" placeholder="Số tiền" />
-                    <button>Thêm</button>
-                    <button onClick={() => setIsAddThem(!isAddThem)}>Hủy</button>
-                </form>
-            </Wrapper>
-        </div>
-    );
-
     const getidr = (id) => {
         const currentUser = user.id;
         const delRevenue = async () => {
@@ -170,6 +105,7 @@ const Revenue = () => {
                 const newData = revenueMonth.filter((item) => item.idr !== id);
                 setRevenueMonth(newData);
             }
+            console.log(result);
         };
         delRevenue();
     };
@@ -196,6 +132,7 @@ const Revenue = () => {
             const result = await revenueServices.putRevenue(a, currentUser, datachange, token);
             if (result.status === 200) {
                 console.log('sửa thành công');
+                console.log(result);
             }
         };
         const newData = revenueMonth.findIndex((item) => item.idr === a);
@@ -222,19 +159,6 @@ const Revenue = () => {
                     )}
                 </Wrapper>
             </div>
-            {/* <div className={cx('content')}>
-                <div className={cx('title')}>
-                    <h2>Doanh thu thêm</h2>
-                    <button onClick={() => setIsAddThem(!isAddThem)}>
-                        <FontAwesomeIcon icon={faCirclePlus} />
-                        <span>Thêm</span>
-                    </button>
-                </div>
-                {isAddThem && renderAddThem()}
-                <Wrapper>
-                    <Table data={datasFake} />
-                </Wrapper>
-            </div> */}
         </div>
     );
 };
