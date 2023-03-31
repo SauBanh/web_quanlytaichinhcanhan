@@ -18,12 +18,12 @@ const itemsMenuSidebar = [
         icon: <FontAwesomeIcon icon={faHouse} />,
     },
     {
-        link: '/revenue',
+        link: '/revenues',
         title: 'Quản lý doanh thu',
         icon: <FontAwesomeIcon icon={faMoneyBill} />,
     },
     {
-        link: '/spending',
+        link: '/spendings',
         title: 'Quản lý chi tiêu',
         icon: <FontAwesomeIcon icon={faMoneyCheckDollar} />,
     },

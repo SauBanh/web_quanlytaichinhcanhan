@@ -1,158 +1,197 @@
-import React, { useState, useRef, Fragment } from 'react';
-// import { DataGrid } from '@mui/x-data-grid';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Button,
+    TablePagination,
+    Typography,
+} from '@mui/material';
 
-import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Tooltip from '@mui/material/Tooltip';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Alert from '@mui/material/Alert';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 
-import classNames from 'classnames/bind';
-import styles from './Table.module.scss';
+const TableData = ({ columns, datarows, titleTable, delid }) => {
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rows, setRows] = useState(datarows);
+    const [open, setOpen] = useState(false);
 
-const cx = classNames.bind(styles);
+    const [showAlert, setShowAlert] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [idDelete, setIdDelete] = useState();
 
-// const columns = [
-//     { field: 'id', headerName: 'Stt', width: 70 },
-//     { field: 'firstName', headerName: 'Loại doanh thu', width: 130 },
-//     { field: 'lastName', headerName: 'Ngày thêm', width: 130 },
-//     {
-//         field: 'age',
-//         headerName: 'Số tiền',
-//         type: 'number',
-//         width: 90,
-//     },
-//     {
-//         field: 'fullName',
-//         headerName: 'Chi tiết',
-//         //   description: 'This column has a value getter and is not sortable.',
-//         sortable: false,
-//         width: 160,
-//         valueGetter: (params) => `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-//     },
-// ];
+    const [stt, setStt] = useState(1);
 
-function Table({ getidr, sendData, data }) {
-    const [isedit, setIsedit] = useState();
-    const [input1, setInput1] = useState('');
-    const [input2, setInput2] = useState('');
-    const [input3, setInput3] = useState('');
-
-    const inputElement = useRef();
-
-    const handleEdit = (id) => {
-        setIsedit(id);
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
     };
 
-    const handleChange = () => {
-        const dataChange = {
-            name: input1,
-            value: input2,
-            description: input3,
-        };
-        sendData(dataChange, isedit);
-        setIsedit();
-        setInput1('');
-        setInput2('');
-        setInput3('');
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
     };
 
-    const renderEditForm = () => (
-        <Fragment>
-            <td></td>
-            <td>
-                <input
-                    ref={inputElement}
-                    type="text"
-                    value={input1}
-                    required
-                    onChange={(e) => setInput1(e.target.value)}
-                />
-            </td>
-            <td></td>
-            <td>
-                <input type="number" value={input2} min="1" required onChange={(e) => setInput2(e.target.value)} />
-            </td>
-            <td>
-                <input type="text" value={input3} required onChange={(e) => setInput3(e.target.value)} />
-            </td>
-            <td>
-                <Button onClick={handleChange}>Cập nhật</Button>
-            </td>
-            <td>
-                <Button
-                    onClick={() => {
-                        setIsedit();
-                    }}
-                >
-                    Hủy
-                </Button>
-            </td>
-        </Fragment>
-    );
+    const handleShowDeleteDialog = (row) => {
+        setIdDelete(row);
+        setOpen(true);
+    };
 
-    // const rows = [
-    //     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    //     { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    //     { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    //     { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    //     { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    //     { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    //     { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    //     { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    //     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-    // ];
+    const handleDeleteItem = () => {
+        setRows(rows.filter((r) => r.id !== idDelete.id));
+        delid(idDelete.id);
+        setOpen(false);
+        setSuccessMessage('Xóa thành công');
+        // setShowAlert(true);
+        setShowAlert(true);
+        setTimeout(() => {
+            setShowAlert(false);
+        }, 2000); // tự động tắt sau 2 giây
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
-        <div className={cx('warpper')}>
-            <table>
-                <thead>
-                    <tr className={cx('nonehover')}>
-                        <th>Stt</th>
-                        <th>Loại doanh thu</th>
-                        <th>Ngày thêm</th>
-                        <th>Số tiền</th>
-                        <th>Chi tiết</th>
-                        <th>Sửa</th>
-                        <th>Xóa</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {data.map((dataFake, index) => (
-                        <tr key={dataFake.idr}>
-                            {isedit === dataFake.idr ? (
-                                renderEditForm()
-                            ) : (
-                                <Fragment>
-                                    <td>
-                                        <p>{index + 1}</p>
-                                    </td>
-                                    <td>
-                                        <p>{dataFake.name}</p>
-                                    </td>
-                                    <td>
-                                        <p>{dataFake.adddate}</p>
-                                    </td>
-                                    <td>
-                                        <p>{dataFake.value}</p>
-                                    </td>
-                                    <td>
-                                        <p>{dataFake.desc}</p>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleEdit(dataFake.idr)}>Sửa</button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => getidr(dataFake.idr)}>Xóa</button>
-                                    </td>
-                                </Fragment>
-                            )}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div style={{ width: '100%' }}>
+            {showAlert && (
+                <Alert
+                    style={{
+                        position: 'fixed',
+                        top: '8px',
+                        left: '320px',
+                        width: '300px',
+                        boxShadow: '0px 0px 5px 1px #888888',
+                    }}
+                    severity="success"
+                    onClose={() => setShowAlert(false)}
+                >
+                    {successMessage}
+                </Alert>
+            )}
+            <Typography variant="h5" gutterBottom>
+                {titleTable}
+                <Fab style={{ float: 'right' }} size="small" color="primary" aria-label="add">
+                    <Link
+                        to="/revenues/add"
+                        style={{
+                            textDecoration: 'none',
+                            color: '#fff',
+                            display: 'flex',
+                            width: '100%',
+                            height: '100%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Tooltip title="Thêm mới">
+                            <AddIcon />
+                        </Tooltip>
+                    </Link>
+                </Fab>
+            </Typography>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            {columns.map((column) => (
+                                <TableCell style={{ fontSize: '20px' }} key={column.id}>
+                                    {column.name}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {(rowsPerPage > 0
+                            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            : rows
+                        ).map((row, index) => (
+                            <TableRow key={row.id}>
+                                <TableCell style={{ fontSize: '18px' }}>{index + page * rowsPerPage + 1}</TableCell>
+                                <TableCell style={{ fontSize: '18px' }}>{row.name}</TableCell>
+                                <TableCell style={{ fontSize: '18px' }}>{row.adddate}</TableCell>
+                                <TableCell style={{ fontSize: '18px' }}>{row.value}</TableCell>
+                                <TableCell style={{ fontSize: '18px' }}>{row.desc}</TableCell>
+                                <TableCell style={{ fontSize: '18px' }}>
+                                    <Tooltip title="Edit">
+                                        <Link
+                                            style={{ textDecoration: 'none', color: '#fff' }}
+                                            to={`/revenues/edit/${row.id}`}
+                                        >
+                                            <Button
+                                                style={{ margin: '0 30px 0 0' }}
+                                                variant="contained"
+                                                color="primary"
+                                                size="small"
+                                                startIcon={<EditIcon />}
+                                            >
+                                                Edit
+                                            </Button>
+                                        </Link>
+                                    </Tooltip>
+                                    <Tooltip title="Delete">
+                                        <Button
+                                            variant="outlined"
+                                            color="error"
+                                            size="small"
+                                            onClick={() => handleShowDeleteDialog(row)}
+                                            startIcon={<DeleteIcon />}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </Tooltip>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </TableContainer>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{'Bạn có chắc chắn muốn xóa không'}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Một khi xóa sẽ không xem lại thông tin này được nữa bạn có xóa không
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Hủy</Button>
+                    <Button onClick={handleDeleteItem} autoFocus>
+                        Xóa
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
-        // <div style={{ height: 400, width: '100%' }}>
-        //     <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection />
-        // </div>
     );
-}
+};
 
-export default Table;
+export default TableData;

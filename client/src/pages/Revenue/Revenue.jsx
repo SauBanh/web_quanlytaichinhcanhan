@@ -3,39 +3,71 @@ import Cookies from 'js-cookie';
 import Button from '@mui/material/Button';
 // import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
 import Skeleton from '@mui/material/Skeleton';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Revenue.module.scss';
 import classNames from 'classnames/bind';
 
 import * as revenueServices from '../../utils/apiServices/revenueServices';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import Table from '../../components/Table/Table';
+import TableData from '../../components/Table/Table';
 
 const cx = classNames.bind(styles);
 
 const Revenue = () => {
-    const [isaddDT, setIsAddDT] = useState(false);
-    // const [isAddThem, setIsAddThem] = useState(false);
     const [revenueMonth, setRevenueMonth] = useState([]);
-    const [titleRevenue, setTitleReveue] = useState('');
-    const [valueRevenue, setValueReveue] = useState('');
-    const [descRevenue, setDescReveue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const user = JSON.parse(localStorage.getItem('user'));
 
+    const TitleTable = 'Bảng doanh thu cá nhân';
+
     const token = Cookies.get('token');
+
+    const columns = [
+        {
+            id: 1,
+            name: 'Stt',
+        },
+        {
+            id: 2,
+            name: 'Loại doanh thu',
+        },
+        {
+            id: 3,
+            name: 'Ngày thêm',
+        },
+        {
+            id: 4,
+            name: 'Số Tiền',
+        },
+        {
+            id: 5,
+            name: 'Mô tả chi tiết',
+        },
+        {
+            id: 6,
+            name: 'Action',
+        },
+    ];
 
     useEffect(() => {
         setIsLoading(true);
         const getapiRevenue = async () => {
-            const result = await revenueServices.getRevenue(token);
+            const result = await revenueServices.getRevenues(token);
             if (result.status === 200) {
-                setRevenueMonth(result.data.revenues);
+                setRevenueMonth(
+                    result.data.revenues.map((data, index) => {
+                        return {
+                            stt: index + 1,
+                            uid: data.id,
+                            id: data.idr,
+                            adddate: data.adddate,
+                            name: data.name,
+                            value: data.value,
+                            desc: data.desc,
+                        };
+                    }),
+                );
                 setIsLoading(false);
             } else if (result.status === 403) {
                 console.log('token hết hạn');
@@ -43,66 +75,6 @@ const Revenue = () => {
         };
         getapiRevenue();
     }, []);
-
-    const handleAddRevenueMonth = (event) => {
-        event.preventDefault();
-        let d = new Date();
-        const postRevenue = async () => {
-            const currentUser = user.id;
-            const result = await revenueServices.postRevenue(
-                {
-                    id: currentUser,
-                    name: titleRevenue,
-                    value: Number(valueRevenue),
-                    adddate: d,
-                    desc: descRevenue,
-                },
-                token,
-            );
-            if (result.status === 200) {
-                setRevenueMonth((prev) => [...prev, result.data.revenue]);
-                console.log('thêm thành công');
-            }
-        };
-        postRevenue();
-        setDescReveue('');
-        setValueReveue('');
-        setTitleReveue('');
-        setIsAddDT(false);
-    };
-
-    const renderAddHangThang = () => (
-        <div className={cx('formadd')}>
-            <Wrapper>
-                <form onSubmit={handleAddRevenueMonth}>
-                    <input
-                        type="text"
-                        onChange={(e) => setTitleReveue(e.target.value)}
-                        value={titleRevenue}
-                        placeholder="Loại doanh thu"
-                        required
-                    />
-                    <input
-                        type="number"
-                        onChange={(e) => setValueReveue(e.target.value)}
-                        value={valueRevenue}
-                        placeholder="Số tiền"
-                        min="1"
-                        required
-                    />
-                    <input
-                        type="text"
-                        onChange={(e) => setDescReveue(e.target.value)}
-                        value={descRevenue}
-                        placeholder="Chi tiết"
-                        required
-                    />
-                    <button onClick={handleAddRevenueMonth}>Thêm</button>
-                    <button onClick={() => setIsAddDT(!isaddDT)}>Hủy</button>
-                </form>
-            </Wrapper>
-        </div>
-    );
 
     const getidr = (id) => {
         const currentUser = user.id;
@@ -116,6 +88,7 @@ const Revenue = () => {
             console.log(result);
         };
         delRevenue();
+        console.log(id);
     };
 
     const sendData = (data, a) => {
@@ -140,7 +113,6 @@ const Revenue = () => {
             const result = await revenueServices.putRevenue(a, currentUser, datachange, token);
             if (result.status === 200) {
                 console.log('sửa thành công');
-                console.log(result);
             }
         };
         const newData = revenueMonth.findIndex((item) => item.idr === a);
@@ -151,14 +123,6 @@ const Revenue = () => {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
-                <div className={cx('title')}>
-                    <h2>Doanh thu hàng tháng</h2>
-                    <Button onClick={() => setIsAddDT(!isaddDT)}>
-                        <FontAwesomeIcon icon={faCirclePlus} />
-                        <span>Thêm</span>
-                    </Button>
-                </div>
-                {isaddDT && renderAddHangThang()}
                 {isLoading ? (
                     <div
                         style={{
@@ -169,14 +133,14 @@ const Revenue = () => {
                             alignItems: 'center',
                         }}
                     >
-                        <div style={{ width: '100%', transform: 'translateY(40px)' }}>
+                        <div style={{ width: '100%', transform: 'translateY(75px)' }}>
                             <Wrapper>
                                 <Box sx={{ width: '100%' }}>
-                                    <Skeleton height={'70px'} animation="wave" />
-                                    <Skeleton height={'70px'} animation="wave" />
-                                    <Skeleton height={'70px'} animation="wave" />
-                                    <Skeleton height={'70px'} animation="wave" />
-                                    <Skeleton height={'70px'} animation="wave" />
+                                    <Skeleton height={'80px'} animation="wave" />
+                                    <Skeleton height={'80px'} animation="wave" />
+                                    <Skeleton height={'80px'} animation="wave" />
+                                    <Skeleton height={'80px'} animation="wave" />
+                                    <Skeleton height={'80px'} animation="wave" />
                                 </Box>
                             </Wrapper>
                         </div>
@@ -184,11 +148,12 @@ const Revenue = () => {
                 ) : (
                     <Wrapper>
                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            {/* {revenueMonth.length === 0 ? (
-                                <p>Chưa tạo doanh thu tháng này</p>
-                            ) : ( */}
-                            <Table getidr={getidr} sendData={sendData} data={revenueMonth} />
-                            {/* )} */}
+                            <TableData
+                                delid={getidr}
+                                columns={columns}
+                                titleTable={TitleTable}
+                                datarows={revenueMonth}
+                            />
                         </div>
                     </Wrapper>
                 )}

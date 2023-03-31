@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 
 import NotFound from './pages/NotFound/NotFound';
 
-import { publicRoutes, privateRoutes } from './routes';
+import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layouts';
 
 function App() {

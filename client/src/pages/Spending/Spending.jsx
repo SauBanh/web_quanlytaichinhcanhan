@@ -27,7 +27,6 @@ const Spending = () => {
         const getapiRevenue = async () => {
             const result = await spendingServices.getSpending(token);
             if (result.status === 200) {
-                console.log('thêm thành công');
                 setDataSpending(result.data.spendings);
             } else if (result.status === 403) {
                 console.log('token hết hạn');

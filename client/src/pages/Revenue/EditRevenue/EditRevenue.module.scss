@@ -1,0 +1,39 @@
+.warpper {
+    height: 100%;
+    .container {
+        min-height: 587px;
+        .btnSubmit {
+            border: none;
+            cursor: pointer;
+            background-color: #1976d2ef;
+            color: #fff;
+            font-weight: 600;
+            &:hover {
+                background-color: #1976d2;
+            }
+        }
+        .boxinputRevenue {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-size: 20px;
+            font-weight: 500;
+            padding-bottom: 20px;
+        }
+        input {
+            font-size: 20px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            width: 100%;
+            padding: 10px;
+            &:focus {
+                outline: none;
+            }
+        }
+        p {
+            font-size: 18px;
+            padding-top: 10px;
+        }
+    }
+}
