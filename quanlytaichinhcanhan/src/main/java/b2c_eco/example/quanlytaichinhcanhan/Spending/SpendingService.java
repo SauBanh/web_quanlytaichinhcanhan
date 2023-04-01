@@ -56,4 +56,10 @@ public class SpendingService {
         Long uid = user.getId();
         return spendingRepository.sumSpendingValueByCategory(uid);
     }
+
+    public List<Spending> topSeven(Authentication authentication){
+        User user = userService.getUser(authentication).orElse(null);
+        Long uid = user.getId();
+        return spendingRepository.getTop7Recent(uid);
+    }
 }
