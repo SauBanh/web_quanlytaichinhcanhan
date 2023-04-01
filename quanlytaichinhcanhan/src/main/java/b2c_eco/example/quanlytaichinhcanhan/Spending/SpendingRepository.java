@@ -21,6 +21,6 @@ public interface SpendingRepository extends JpaRepository<Spending, Long>{
    
     }
 
-    @Query(nativeQuery = true, value="SELECT * FROM spending WHERE spending.id = ?1 ORDER BY spending.idr DESC LIMIT 7")
+    @Query(nativeQuery = true, value="SELECT * FROM spending WHERE spending.id = ?1 ORDER BY spending.ids DESC LIMIT 7")
     List<Spending> getTop7Recent(Long id);
 }
