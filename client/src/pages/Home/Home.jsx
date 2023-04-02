@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import * as statistical from '../../utils/apiServices/statistical';
 
 import RadarChart from '../../components/Chart/RadarChart/RadarChart';
+import LineChartt from '../../components/Chart/LineChart/LineChartt';
 import Wrapper from '../../components/Wrapper/Wrapper';
 
 import Grid from '@mui/material/Grid';
@@ -64,22 +65,22 @@ const Home = () => {
                         </div>
                     </Wrapper>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
+                    <Wrapper>
+                        <div>
+                            <h3>Biểu đồ chi tiêu</h3>
+                            <LineChartt data={sumSpending} />
+                        </div>
+                    </Wrapper>
+                </Grid>
+                {/* <Grid item xs={5}>
                     <Wrapper>
                         <div>
                             <h3>Biểu đồ chi tiêu</h3>
                             <RadarChart data={sumSpending} />
                         </div>
                     </Wrapper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Wrapper>
-                        <div>
-                            <h3>Biểu đồ chi tiêu</h3>
-                            <RadarChart data={sumSpending} />
-                        </div>
-                    </Wrapper>
-                </Grid>
+                </Grid> */}
             </Grid>
         </div>
     );

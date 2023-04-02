@@ -33,7 +33,7 @@ export default function Chart({ data }) {
             />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="value" fill="#1976d2" background={{ fill: '#eee' }} />
+            <Bar dataKey="value" fill="#1976d2" background={{ fill: '#d8edff' }} />
         </BarChart>
     );
 }
