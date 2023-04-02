@@ -30,6 +30,10 @@ function EditRevenue() {
             const result = await revenueServices.getRevenue(token, productId);
             if (result.status === 200) {
                 setDataRevenue(result.data.revenue);
+                setValue('name', result.data.revenue.name);
+                setValue('adddate', result.data.revenue.adddate);
+                setValue('value', result.data.revenue.value);
+                setValue('desc', result.data.revenue.desc);
             } else if (result.status === 403) {
                 console.log('token hết hạn');
             }
@@ -43,11 +47,11 @@ function EditRevenue() {
     const schema = yup.object().shape({
         value: yup
             .number()
-            .typeError('Tiền phải là số')
             .positive('Tiền phải là số dương')
+            .typeError('Tiền phải là số')
             .min(10000, 'Tiền phải trên 10000')
-            .transform((value, originalValue) => (originalValue.trim() === '' ? null : value))
-            .required('Vui lòng nhập Tiền'),
+            .transform((value, originalValue) => (originalValue.length === 0 ? null : value))
+            .required('Vui lòng nhập số Tiền'),
         name: yup.string().required('Vui lòng nhập loại doanh thu'),
         desc: yup.string().required('Vui lòng nhập mô tả chi tiết'),
     });
@@ -55,12 +59,34 @@ function EditRevenue() {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
     });
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
+        let formatDate = new Date(data.adddate);
+        console.log(formatDate);
+        console.log(dataRevenue);
+        const putRevenue = async () => {
+            const result = await revenueServices.putRevenue(
+                dataRevenue.idr,
+                dataRevenue.id,
+                {
+                    name: data.name,
+                    value: data.value,
+                    adddate: formatDate,
+                    desc: data.desc,
+                },
+                token,
+            );
+            if (result.status === 200) {
+                console.log('sửa thành công');
+            }
+        };
+        await putRevenue();
+        navigate('/revenues');
     };
 
     return (
@@ -71,7 +97,7 @@ function EditRevenue() {
                         <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                             <Grid item xs={6}>
                                 <Typography variant="h5" component="h1" gutterBottom>
-                                    Thêm doanh thu
+                                    Sửa doanh thu
                                 </Typography>
                             </Grid>
                             <Grid item xs={6}>
@@ -90,7 +116,7 @@ function EditRevenue() {
                             <Grid item xs={12}>
                                 <div className={cx('boxinputRevenue')}>
                                     <label>Loại doanh thu</label>
-                                    <input defaultValue={dataRevenue.name} {...register('name', { required: true })} />
+                                    <input {...register('name', { required: true })} />
                                     {errors.name && <p style={{ color: 'red' }}>{errors.name.message}</p>}
                                 </div>
                             </Grid>
@@ -100,7 +126,6 @@ function EditRevenue() {
                                     <input
                                         style={{ backgroundColor: '#ececec', cursor: 'no-drop' }}
                                         readOnly
-                                        defaultValue={dataRevenue.adddate}
                                         {...register('adddate', { required: true })}
                                     />
                                     {errors.adddate && <p style={{ color: 'red' }}>{errors.adddate.message}</p>}
@@ -109,18 +134,14 @@ function EditRevenue() {
                             <Grid item xs={12}>
                                 <div className={cx('boxinputRevenue')}>
                                     <label>Số tiền</label>
-                                    <input
-                                        defaultValue={dataRevenue.value}
-                                        type="number"
-                                        {...register('value', { min: 1 }, { required: true })}
-                                    />
+                                    <input type="number" {...register('value', { min: 1 }, { required: true })} />
                                     {errors.value && <p style={{ color: 'red' }}>{errors.value.message}</p>}
                                 </div>
                             </Grid>
                             <Grid item xs={12}>
                                 <div className={cx('boxinputRevenue')}>
                                     <label>Mô tả chi tiết</label>
-                                    <input defaultValue={dataRevenue.desc} {...register('desc', { required: true })} />
+                                    <input {...register('desc', { required: true })} />
                                     {errors.desc && <p style={{ color: 'red' }}>{errors.desc.message}</p>}
                                 </div>
                             </Grid>

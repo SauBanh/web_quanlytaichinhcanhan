@@ -12,6 +12,7 @@ import {
     TablePagination,
     Typography,
 } from '@mui/material';
+import numeral from 'numeral';
 
 import Grid from '@mui/material/Grid';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -26,7 +27,7 @@ import Alert from '@mui/material/Alert';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 
-const TableData = ({ columns, datarows, titleTable, delid }) => {
+const TableData = ({ columns, datarows, titleTable, delid, category }) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [rows, setRows] = useState(datarows);
@@ -51,7 +52,6 @@ const TableData = ({ columns, datarows, titleTable, delid }) => {
         setIdDelete(row);
         setOpen(true);
     };
-
     const handleDeleteItem = () => {
         setRows(rows.filter((r) => r.id !== idDelete.id));
         delid(idDelete.id);
@@ -122,13 +122,16 @@ const TableData = ({ columns, datarows, titleTable, delid }) => {
                             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : rows
                         ).map((row, index) => (
-                            <TableRow key={row.id}>
-                                <TableCell style={{ fontSize: '18px' }}>{index + page * rowsPerPage + 1}</TableCell>
-                                <TableCell style={{ fontSize: '18px' }}>{row.name}</TableCell>
-                                <TableCell style={{ fontSize: '18px' }}>{row.adddate}</TableCell>
-                                <TableCell style={{ fontSize: '18px' }}>{row.value}</TableCell>
-                                <TableCell style={{ fontSize: '18px' }}>{row.desc}</TableCell>
-                                <TableCell style={{ fontSize: '18px' }}>
+                            <TableRow key={`${row.id}`}>
+                                <TableCell style={{ fontSize: '15px' }}>{index + page * rowsPerPage + 1}</TableCell>
+                                <TableCell style={{ fontSize: '15px' }}>{row.name}</TableCell>
+                                <TableCell style={{ fontSize: '15px' }}>{row.adddate}</TableCell>
+                                {category && <TableCell style={{ fontSize: '15px' }}>{row.idc}</TableCell>}
+                                <TableCell style={{ fontSize: '15px' }}>{numeral(row.value).format('0,0')}</TableCell>
+                                <TableCell maxWidth={100} style={{ fontSize: '15px' }}>
+                                    {row.desc}
+                                </TableCell>
+                                <TableCell style={{ fontSize: '15px', minxWidth: '250px' }}>
                                     <Tooltip title="Edit">
                                         <Link
                                             style={{ textDecoration: 'none', color: '#fff' }}

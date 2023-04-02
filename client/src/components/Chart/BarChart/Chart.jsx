@@ -1,80 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import numeral from 'numeral';
 
-import * as statistical from '../../../utils/apiServices/statistical';
-import Cookies from 'js-cookie';
+const formatPrice = (value) => {
+    return numeral(value).format('0,0[.]00 ₫');
+};
 
-const data = [
-    {
-        name: 'Page A',
-        pv: 2400,
-    },
-    {
-        name: 'Page B',
-        pv: 1398,
-    },
-    {
-        name: 'Page C',
-        pv: 9800,
-    },
-    {
-        name: 'Page D',
-        pv: 3908,
-    },
-    {
-        name: 'Page E',
-        pv: 4800,
-    },
-    {
-        name: 'Page F',
-        pv: 3800,
-    },
-    {
-        name: 'Page G',
-        pv: 4300,
-    },
-];
+const formatYAxis = (tickItem) => {
+    return formatPrice(tickItem);
+};
 
-export default function Chart() {
-    const [apiTop7, setApiTop7] = useState([]);
-
-    const token = Cookies.get('token');
-
-    useEffect(() => {
-        const getapiTop7Revenue = async () => {
-            const result = await statistical.getTop7Revenue(token);
-            if (result.status === 200) {
-                const chartTop7 = result.data.data.map((item) => {
-                    return {
-                        // id: item.idr,
-                        name: item.name,
-                        value: item.value,
-                    };
-                });
-                // console.log(chartTop7);
-                setApiTop7(chartTop7);
-            } else if (result.status === 403) {
-                console.log('token hết hạn');
-            }
-        };
-        getapiTop7Revenue();
-    }, []);
+export default function Chart({ data }) {
     return (
         <BarChart
             width={1000}
-            height={500}
-            data={apiTop7}
+            height={300}
+            data={data}
             margin={{
                 top: 5,
-                right: 30,
-                left: 20,
+                right: 10,
+                left: 90,
                 bottom: 5,
             }}
-            barSize={50}
+            barSize={30}
         >
             <XAxis dataKey="name" scale="point" padding={{ left: 50, right: 50 }} />
-            <YAxis />
-            <Tooltip />
+            <YAxis tickFormatter={formatYAxis} />
+            <Tooltip
+                formatter={(value) =>
+                    new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value)
+                }
+            />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
             <Bar dataKey="value" fill="#1976d2" background={{ fill: '#eee' }} />
