@@ -43,7 +43,7 @@ const NewRevenue = () => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         let date = new Date();
         const postRevenue = async () => {
             const currentUser = user.id;
@@ -59,7 +59,7 @@ const NewRevenue = () => {
                 console.log('thêm thành công');
             }
         };
-        postRevenue();
+        await postRevenue();
         navigate('/revenues');
     };
 

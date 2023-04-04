@@ -81,7 +81,7 @@ const Login = () => {
                                     {errors.username && <p className={cx('require_error')}>Chưa nhập user name</p>}
                                     <div className={cx('auth-form_group')}>
                                         <input
-                                            type="text"
+                                            type="password"
                                             onChange={(e) => setPassword(e.target.value)}
                                             defaultValue={password}
                                             placeholder="Nhập Mật Khẩu"
