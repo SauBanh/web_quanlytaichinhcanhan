@@ -56,7 +56,7 @@ const Home = () => {
     }, []);
     return (
         <div className={cx('warrper')}>
-            <Grid container spacing={1}>
+            <Grid container spacing={0.5}>
                 <Grid item xs={12}>
                     <Wrapper>
                         <div>
@@ -68,7 +68,7 @@ const Home = () => {
                 <Grid item xs={12}>
                     <Wrapper>
                         <div>
-                            <h3>Biểu đồ chi tiêu</h3>
+                            <h3>Biểu đồ tổng chi tiêu chi tiêu</h3>
                             <LineChartt data={sumSpending} />
                         </div>
                     </Wrapper>

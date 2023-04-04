@@ -44,8 +44,10 @@ const Sidebar = () => {
                         return (
                             <li key={index}>
                                 <NavLink
+                                    // exact
                                     className={(nav) => cx('menuitem', { active: nav.isActive })}
                                     to={itemMenuSidebar.link}
+                                    // isActive={(match) => match && match.url.includes(itemMenuSidebar.link)}
                                 >
                                     <div className={cx('logo')}>{itemMenuSidebar.icon}</div>
                                     {itemMenuSidebar.title}

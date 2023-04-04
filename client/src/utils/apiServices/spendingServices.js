@@ -18,6 +18,15 @@ export const getSpendings = async (token) => {
     }
 };
 
+export const getCategorys = async (token) => {
+    try {
+        const res = await request.get('/category/', token);
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const getSpending = async (token, id) => {
     try {
         const res = await request.get(`/spending/${id}`, token);

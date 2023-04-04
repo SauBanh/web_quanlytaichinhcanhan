@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+
+import { useForm } from 'react-hook-form';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 import Cookies from 'js-cookie';
 
 import * as registerServices from '../../utils/apiServices/registerServices';
@@ -9,42 +14,19 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 const Register = () => {
-    const [username, setusername] = useState('');
-    const [name, setname] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [showPass, setShowPass] = useState(false);
     const token = Cookies.get('token');
     const navigate = useNavigate();
-    const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // if (username.trim() === '') {
-        //     alert('Vui lòng nhập User Name');
-        //     return;
-        // }
-        // if (name.trim() === '') {
-        //     alert('Vui lòng nhập Name');
-        //     return;
-        // }
-        // if (email.trim() === '') {
-        //     alert('Vui lòng nhập Email');
-        //     return;
-        // }
-        // if (password.trim() === '') {
-        //     alert('Vui lòng nhập Mật Khẩu');
-        //     return;
-        // }else if (password.length < 8 ) {
-        //     alert('Mật khẩu tối thiểu 8 kí tự');
-        //     return;
-        // }
-        // if (password !== confirmPassword) {
-        //     alert('Mật khẩu không trùng khớp');
-        //     return;
-        // }
-
+    const {
+        register,
+        handleSubmit,
+        // watch,
+        formState: { errors },
+    } = useForm();
+    const onSubmit = async (data) => {
         const getToken = async () => {
-            const result = await registerServices.register({ username, name, password, email });
+            const result = await registerServices.register(data);
             console.log(result);
         };
         await getToken();
@@ -59,7 +41,7 @@ const Register = () => {
                 <div className={cx('modal_overlay')}></div>
                 <div className={cx('modal_body')}>
                     <div className={cx('modal_inner')}>
-                        <form onSubmit={handleSubmit} id="my-form">
+                        <form onSubmit={handleSubmit(onSubmit)} id="my-form">
                             <div className={cx('auth-form')}>
                                 <div className={cx('auth-form_header')}>
                                     <h3 className={cx('auth-form_heading')}>Đăng Ký</h3>
@@ -75,26 +57,56 @@ const Register = () => {
                                                 <tr>
                                                     <th>
                                                         <input
+                                                            placeholder="Nhập username"
                                                             type="text"
                                                             className={cx('auth-form_input')}
-                                                            value={username}
-                                                            id="username"
-                                                            placeholder="Nhập User Name"
-                                                            onChange={(e) => setusername(e.target.value)}
-                                                            required
+                                                            {...register('username', {
+                                                                required: true,
+                                                                pattern: /^[^\s]+$/,
+                                                            })}
                                                         />
+                                                        {errors.username?.type === 'required' && (
+                                                            <p
+                                                                style={{
+                                                                    color: 'red',
+                                                                    fontSize: '13px',
+                                                                    fontWeight: '400',
+                                                                }}
+                                                            >
+                                                                Chưa nhập user name
+                                                            </p>
+                                                        )}
+                                                        {errors.username?.type === 'pattern' && (
+                                                            <p
+                                                                style={{
+                                                                    color: 'red',
+                                                                    fontSize: '13px',
+                                                                    fontWeight: '400',
+                                                                }}
+                                                            >
+                                                                Username không được có gõ dấu cách
+                                                            </p>
+                                                        )}
                                                     </th>
                                                     <th></th>
                                                     <th>
                                                         <input
                                                             type="text"
                                                             className={cx('auth-form_input')}
-                                                            value={name}
-                                                            id="name"
                                                             placeholder="Nhập Name"
-                                                            onChange={(e) => setname(e.target.value)}
-                                                            required
+                                                            {...register('name', { required: true })}
                                                         />
+                                                        {errors.name && (
+                                                            <p
+                                                                style={{
+                                                                    color: 'red',
+                                                                    fontSize: '13px',
+                                                                    fontWeight: '400',
+                                                                }}
+                                                            >
+                                                                Chưa nhập name
+                                                            </p>
+                                                        )}
                                                     </th>
                                                 </tr>
                                             </tbody>
@@ -104,23 +116,41 @@ const Register = () => {
                                         <input
                                             type="email"
                                             className={cx('auth-form_input')}
-                                            value={email}
-                                            id="email"
                                             placeholder="Nhập Email"
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
+                                            {...register('email', { required: true })}
                                         />
+                                        {errors.email && (
+                                            <p style={{ color: 'red', fontSize: '13px' }}>Chưa nhập name</p>
+                                        )}
                                     </div>
-                                    <div className={cx('auth-form_group')}>
+                                    <div style={{ position: 'relative' }} className={cx('auth-form_group')}>
                                         <input
-                                            type="password"
-                                            className={cx('auth-form_input')}
-                                            value={password}
-                                            id="password"
+                                            type={showPass ? 'text' : 'password'}
                                             placeholder="Nhập Mật Khẩu"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            required
+                                            className={cx('auth-form_input')}
+                                            {...register('password', { required: true })}
                                         />
+                                        {errors.password && (
+                                            <p
+                                                style={{
+                                                    color: 'red',
+                                                    fontSize: '13px',
+                                                    fontWeight: '400',
+                                                }}
+                                            >
+                                                This field is required
+                                            </p>
+                                        )}
+                                        <div
+                                            onClick={() => setShowPass(!showPass)}
+                                            style={{
+                                                position: 'absolute',
+                                                top: '23px',
+                                                right: '10px',
+                                            }}
+                                        >
+                                            {showPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                        </div>
                                     </div>
                                     {/* <div className={cx('auth-form_group')}>
                                         <input

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import Cookies from 'js-cookie';
 import styles from './Login.module.scss';
@@ -12,9 +14,8 @@ import * as userServices from '../../utils/apiServices/userServices';
 
 const cx = classNames.bind(styles);
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [isTrue, setIsTrue] = useState(false);
+    const [showPass, setShowPass] = useState(false);
     const token = Cookies.get('token');
     const navigate = useNavigate();
 
@@ -70,20 +71,16 @@ const Login = () => {
                                 <div className={cx('auth-form_form')}>
                                     <div className={cx('auth-form_group')}>
                                         <input
-                                            onChange={(e) => setUsername(e.target.value)}
-                                            placeholder="Nhập Email"
+                                            placeholder="Nhập username"
                                             type="text"
                                             className={cx('auth-form_input')}
-                                            defaultValue={username}
                                             {...register('username', { required: true })}
                                         />
                                     </div>
                                     {errors.username && <p className={cx('require_error')}>Chưa nhập user name</p>}
-                                    <div className={cx('auth-form_group')}>
+                                    <div style={{ position: 'relative' }} className={cx('auth-form_group')}>
                                         <input
-                                            type="password"
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            defaultValue={password}
+                                            type={showPass ? 'text' : 'password'}
                                             placeholder="Nhập Mật Khẩu"
                                             className={cx('auth-form_input')}
                                             {...register('password', { required: true })}
@@ -94,6 +91,16 @@ const Login = () => {
                                         {isTrue && (
                                             <p className={cx('require_error')}>Sai tên đăng nhập hoặc đăng ký</p>
                                         )}
+                                        <div
+                                            onClick={() => setShowPass(!showPass)}
+                                            style={{
+                                                position: 'absolute',
+                                                top: '23px',
+                                                right: '10px',
+                                            }}
+                                        >
+                                            {showPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className={cx('auth-form_aside')}>

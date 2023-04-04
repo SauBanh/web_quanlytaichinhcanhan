@@ -17,7 +17,9 @@ const Revenue = () => {
     const [isLoading, setIsLoading] = useState(false);
     const user = JSON.parse(localStorage.getItem('user'));
 
-    const titleTable = 'Bảng doanh thu cá nhân';
+    const titleTable = 'doanh thu cá nhân';
+
+    const linkPage = '/revenue/';
 
     const token = Cookies.get('token');
 
@@ -122,6 +124,7 @@ const Revenue = () => {
                                 columns={columns}
                                 titleTable={titleTable}
                                 datarows={revenueMonth}
+                                pageLink={linkPage}
                             />
                         </div>
                     </Wrapper>
