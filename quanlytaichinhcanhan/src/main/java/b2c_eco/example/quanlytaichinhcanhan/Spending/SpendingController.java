@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -68,7 +69,7 @@ public class SpendingController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> addSpending(@RequestBody Spending spending){
+    public ResponseEntity<Object> addSpending(@RequestBody @Valid Spending spending){
         // return spendingService.createUserSpd(spending);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
@@ -87,7 +88,7 @@ public class SpendingController {
     }
 
     @PutMapping("/{id}/{uid}")
-    public ResponseEntity<Object> changeSpending(@PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody Spending spending){
+    public ResponseEntity<Object> changeSpending(@PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody @Valid Spending spending){
         // return spendingService.changeUserSpd(id, uid, spending);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();

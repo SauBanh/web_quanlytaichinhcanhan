@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +21,12 @@ public class Target {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idt;
     
+    @NotNull(message = "can't be null!")
     private Long id;
     private Long ida;
+    @NotNull(message = "can't be null!")
     private String name;
+    @NotNull(message = "can't be null!")
     private Long value;
 
 }
