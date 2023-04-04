@@ -81,6 +81,7 @@ function EditRevenue() {
                 },
                 token,
             );
+            console.log(result);
             if (result.status === 200) {
                 console.log('sửa thành công');
             }

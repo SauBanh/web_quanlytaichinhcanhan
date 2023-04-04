@@ -12,7 +12,6 @@ import {
     TablePagination,
     Typography,
 } from '@mui/material';
-import LinkUI from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import numeral from 'numeral';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -130,16 +129,18 @@ const TableData = ({ columns, datarows, titleTable, delid, pageLink }) => {
                         <NavLink
                             to={`add`}
                             style={{
-                                textDecoration: 'none',
+                                textDecoration: 'underline',
                                 color: '#fff',
                                 display: 'flex',
                                 width: '100%',
                                 height: '100%',
                                 justifyContent: 'center',
                                 alignItems: 'center',
+                                fontWeight: '600',
+                                color: '#1976d2',
                             }}
                         >
-                            <LinkUI>Bấm đây để tạo</LinkUI>
+                            Bấm đây để tạo
                         </NavLink>
                     </Grid>
                 </Grid>

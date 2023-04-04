@@ -9,6 +9,15 @@ export const getTop7Revenue = async (token) => {
     }
 };
 
+export const getTop7Spending = async (token) => {
+    try {
+        const res = await request.get('/spending/calcsv', token);
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const getCalcSpeding = async (token) => {
     try {
         const res = await request.get('/spending/calc', token);
