@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -68,7 +69,7 @@ public class DeptController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> addDept(@RequestBody Dept dept){
+    public ResponseEntity<Object> addDept(@RequestBody @Valid Dept dept){
         // return deptService.createUserDept(dept);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
@@ -87,7 +88,7 @@ public class DeptController {
     }
 
     @PutMapping("/{id}/{uid}")
-    public ResponseEntity<Object> changeDept(Authentication authentication, @PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody Dept dept){
+    public ResponseEntity<Object> changeDept(Authentication authentication, @PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody @Valid Dept dept){
         // return deptService.changeUserDept(authentication, id, uid, dept);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();

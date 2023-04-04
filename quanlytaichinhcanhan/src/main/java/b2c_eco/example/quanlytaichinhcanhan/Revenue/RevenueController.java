@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -68,7 +69,7 @@ public class RevenueController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> addRevenue(@RequestBody Revenue revenue){
+    public ResponseEntity<Object> addRevenue(@RequestBody @Valid Revenue revenue){
         // return revenueService.createUserRev(revenue);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();
@@ -87,7 +88,7 @@ public class RevenueController {
     }
 
     @PutMapping("/{id}/{uid}")
-    public ResponseEntity<Object> changeRevenue(@PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody Revenue revenue){
+    public ResponseEntity<Object> changeRevenue(@PathVariable("id") Long id, @PathVariable("uid") Long uid, @RequestBody @Valid Revenue revenue){
         // return revenueService.changeUserRev(id, uid, revenue);
         ResponseEntity<Object> res;
         Map<String, Object> map = new HashMap<String, Object>();

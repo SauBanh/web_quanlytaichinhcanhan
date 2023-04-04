@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -46,7 +47,7 @@ public class UserController {
     // }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+    public User updateUser(@PathVariable("id") Long id, @RequestBody @Valid User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
         return userRepository.save(user);
